@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FutureFund | Comprehensive Financial Report</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <style>
+        .explain-box {
+            font-size: 0.85rem;
+            background-color: var(--bg-primary);
+            border-left: 3px solid var(--accent-primary);
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 4px;
+        }
+        .status-Green { color: var(--accent-secondary); font-weight: bold; }
+        .status-Orange { color: var(--accent-warning); font-weight: bold; }
+        .status-Red { color: var(--accent-danger); font-weight: bold; }
+        .bg-status-Green { background-color: var(--accent-secondary) !important; }
+        .bg-status-Orange { background-color: var(--accent-warning) !important; }
+        .bg-status-Red { background-color: var(--accent-danger) !important; }
+    </style>
+</head>
+<body class="bg-secondary-theme">
+    
+    <nav class="navbar fintech-nav py-3">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-5 text-primary-theme d-flex align-items-center gap-2" href="../index.html">
+                <i class="fas fa-shield-alt text-success" style="color: var(--accent-secondary) !important;"></i> FutureFund Intelligence
+            </a>
+            <div class="ms-auto">
+                <a href="dashboard.html" class="btn btn-primary-fintech">Go to Dashboard <i class="fas fa-arrow-right ms-2"></i></a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-5">
+        
+        <div class="text-center mb-5">
+            <h1 class="display-6 fw-bold text-primary-theme">Your Comprehensive Financial Report</h1>
+            <p class="text-secondary-theme fs-5">Actionable intelligence derived directly from your inputs.</p>
+        </div>
+
+        <div class="row g-4">
+            
+            <!-- Overall Health Breakdown -->
+            <div class="col-lg-4">
+                <div class="fintech-card p-4 h-100">
+                    <h4 class="fw-bold mb-4 text-center">Overall Health Score</h4>
+                    
+                    <div class="text-center mb-4">
+                        <div class="d-inline-flex justify-content-center align-items-center rounded-circle border border-4" style="width: 120px; height: 120px; border-color: var(--accent-primary) !important;">
+                            <h2 class="display-5 fw-bold mb-0 text-primary-theme" id="repScore">0</h2>
+                        </div>
+                    </div>
+
+                    <h6 class="fw-semibold text-secondary-theme mb-3">Score Breakdown</h6>
+                    <div id="healthBreakdown">
+                        <!-- Injected via JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Core Cash Flow & Risk -->
+            <div class="col-lg-8">
+                <div class="fintech-card p-4 h-100">
+                    <h4 class="fw-bold mb-4">Cash Flow & Profile</h4>
+                    
+                    <div class="row g-4 mb-4">
+                        <div class="col-sm-4">
+                            <p class="text-secondary-theme small fw-medium mb-1">Monthly Surplus</p>
+                            <h4 class="fw-bold text-success" id="repSurplus">₹0</h4>
+                        </div>
+                        <div class="col-sm-4">
+                            <p class="text-secondary-theme small fw-medium mb-1">Savings Rate</p>
+                            <h4 class="fw-bold" id="repSavingsRate">0%</h4>
+                        </div>
+                        <div class="col-sm-4">
+                            <p class="text-secondary-theme small fw-medium mb-1">Debt-to-Income</p>
+                            <h4 class="fw-bold" id="repDTI">0%</h4>
+                        </div>
+                    </div>
+
+                    <hr class="border-secondary opacity-25">
+
+                    <div class="mt-4">
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <h5 class="fw-bold mb-0">Risk Profile:</h5>
+                            <span class="badge bg-primary fs-6" id="repRiskProfile">Evaluating</span>
+                        </div>
+                        <p class="text-secondary-theme" id="repRiskExplanation">Analyzing your risk tolerance...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Goal Feasibility -->
+            <div class="col-12 mt-4">
+                <h4 class="fw-bold mb-3">Goal Feasibility Analysis</h4>
+                <div class="row g-4" id="goalsGrid">
+                    <!-- Injected via JS -->
+                </div>
+            </div>
+
+            <!-- Intelligent Smart Roadmap -->
+            <div class="col-12 mt-5">
+                <div class="text-center mb-4">
+                    <h3 class="fw-bold">Your Intelligent Roadmap</h3>
+                    <p class="text-secondary-theme">Deterministic, rule-based milestones to achieve financial independence.</p>
+                </div>
+
+                <div class="row g-4">
+                    <!-- 0-3 Months -->
+                    <div class="col-md-6">
+                        <div class="fintech-card p-4 h-100 border-top border-4 border-danger">
+                            <h5 class="fw-bold mb-4"><i class="fas fa-fire text-danger me-2"></i>First 3 Months</h5>
+                            <div id="roadmap0_3"></div>
+                        </div>
+                    </div>
+                    <!-- 6-12 Months -->
+                    <div class="col-md-6">
+                        <div class="fintech-card p-4 h-100 border-top border-4 border-warning">
+                            <h5 class="fw-bold mb-4"><i class="fas fa-flag text-warning me-2"></i>6 - 12 Months</h5>
+                            <div id="roadmap6_12"></div>
+                        </div>
+                    </div>
+                    <!-- 1-3 Years -->
+                    <div class="col-md-6">
+                        <div class="fintech-card p-4 h-100 border-top border-4 border-primary">
+                            <h5 class="fw-bold mb-4"><i class="fas fa-route text-primary me-2"></i>1 - 3 Years</h5>
+                            <div id="roadmap1_3"></div>
+                        </div>
+                    </div>
+                    <!-- 3-10 Years -->
+                    <div class="col-md-6">
+                        <div class="fintech-card p-4 h-100 border-top border-4 border-success">
+                            <h5 class="fw-bold mb-4"><i class="fas fa-mountain text-success me-2"></i>3 - 10 Years</h5>
+                            <div id="roadmap3_10"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="text-center mt-5 pt-4 border-top">
+            <h5 class="mb-3">Engine output generated and stored locally.</h5>
+            <a href="dashboard.html" class="btn btn-primary-fintech btn-lg px-5 shadow">Initialize Dashboard</a>
+        </div>
+    </div>
+
+    <script src="../js/storage.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/engine.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const report = FinancialEngine.analyze();
+            if (!report) {
+                alert("Please complete the planner first.");
+                window.location.href = "planner/step1-personal.html";
+                return;
+            }
+
+            // Overview
+            document.getElementById('repScore').textContent = report.health.totalScore;
+            document.getElementById('repSurplus').textContent = FutureFundUtils.formatCurrency(report.metrics.surplus);
+            document.getElementById('repSavingsRate').textContent = `${report.metrics.savingsRatio.toFixed(1)}%`;
+            document.getElementById('repDTI').textContent = `${report.metrics.debtToIncomeRatio.toFixed(1)}%`;
+            
+            document.getElementById('repRiskProfile').textContent = report.risk.profile;
+            document.getElementById('repRiskExplanation').textContent = report.risk.explanation;
+
+            // Breakdown UI
+            const breakdownHtml = Object.entries(report.health.breakdown).map(([key, val]) => `
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="text-capitalize text-secondary-theme small fw-medium">${key}</span>
+                    <span class="badge bg-status-${val.status}">${val.score} / ${val.max}</span>
+                </div>
+                <div class="progress mb-3" style="height: 4px;">
+                    <div class="progress-bar bg-status-${val.status}" style="width: ${(val.score/val.max)*100}%"></div>
+                </div>
+            `).join('');
+            document.getElementById('healthBreakdown').innerHTML = breakdownHtml;
+
+            // Goals Matrix
+            const goalsHtml = report.goals.map(g => `
+                <div class="col-md-4">
+                    <div class="fintech-card p-3 border-start border-4 border-status-${g.status}">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <h6 class="fw-bold mb-0">${g.name}</h6>
+                            <span class="status-${g.status} small">${g.status === 'Green' ? 'On Track' : (g.status === 'Orange' ? 'Needs Focus' : 'At Risk')}</span>
+                        </div>
+                        <p class="small text-secondary-theme mb-2">Target: ${g.year} (${g.yearsLeft} yrs)</p>
+                        <p class="small fw-medium mb-0">Required SIP: ${FutureFundUtils.formatCurrency(g.requiredSIP)}/mo</p>
+                        <p class="small text-muted mb-0">Probability: ${g.probability}</p>
+                    </div>
+                </div>
+            `).join('');
+            document.getElementById('goalsGrid').innerHTML = goalsHtml || '<div class="col-12"><p class="text-muted">No goals added.</p></div>';
+
+            // Roadmap Maps
+            const mapRoadmap = (items) => {
+                if(items.length === 0) return `<p class="text-muted small">No immediate actions required.</p>`;
+                return items.map(item => `
+                    <div class="mb-4">
+                        <h6 class="fw-bold text-primary-theme"><i class="fas fa-check-circle me-1 text-muted"></i> ${item.title}</h6>
+                        <p class="small text-secondary-theme mb-2">${item.desc}</p>
+                        
+                        <div class="explain-box">
+                            <div class="mb-1"><strong>Why:</strong> <span class="text-muted">${item.explain.why}</span></div>
+                            <div class="mb-1"><strong>Based on:</strong> <span class="text-muted">${item.explain.input}</span></div>
+                            <div class="mb-1"><strong>If Ignored:</strong> <span class="text-muted">${item.explain.ignore}</span></div>
+                            <div><strong>Benefit:</strong> <span class="text-muted">${item.explain.benefit}</span></div>
+                        </div>
+                    </div>
+                `).join('');
+            };
+
+            document.getElementById('roadmap0_3').innerHTML = mapRoadmap(report.roadmap.months0_3);
+            document.getElementById('roadmap6_12').innerHTML = mapRoadmap(report.roadmap.months6_12);
+            document.getElementById('roadmap1_3').innerHTML = mapRoadmap(report.roadmap.years1_3);
+            document.getElementById('roadmap3_10').innerHTML = mapRoadmap(report.roadmap.years3_10);
+        });
+    </script>
+</body>
+</html>

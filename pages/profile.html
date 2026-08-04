@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile & Settings | FutureFund</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <style>
+        .profile-header { background: var(--bg-card); border-bottom: 1px solid var(--border-color); padding: 3rem 0; }
+        .avatar-circle {
+            width: 80px; height: 80px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2rem; font-weight: 700; color: #fff;
+        }
+        .profile-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg, 14px);
+            padding: 1.75rem;
+            margin-bottom: 1.25rem;
+        }
+        .setting-row {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: .875rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .setting-row:last-child { border-bottom: none; }
+        .setting-label { font-weight: 500; font-size: .9rem; color: var(--text-primary); }
+        .setting-desc  { font-size: .78rem; color: var(--text-muted); margin-top: .1rem; }
+        .toggle-switch {
+            position: relative; width: 44px; height: 24px;
+            background: var(--border-color); border-radius: 99px; cursor: pointer;
+            transition: background .2s ease; flex-shrink: 0;
+        }
+        .toggle-switch.active { background: var(--accent-secondary); }
+        .toggle-switch::after {
+            content: ''; position: absolute; width: 18px; height: 18px;
+            border-radius: 50%; background: #fff; top: 3px; left: 3px;
+            transition: transform .2s ease; box-shadow: 0 1px 3px rgba(0,0,0,.2);
+        }
+        .toggle-switch.active::after { transform: translateX(20px); }
+        .stat-box {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 1rem 1.25rem;
+            text-align: center;
+        }
+        .section-title {
+            font-size: .72rem; font-weight: 700; letter-spacing: .1em;
+            text-transform: uppercase; color: var(--text-muted);
+            margin-bottom: 1rem; display: block;
+        }
+        .danger-btn {
+            background: none; border: 1.5px solid var(--accent-danger, #DC2626);
+            color: var(--accent-danger, #DC2626);
+            border-radius: 8px; padding: 8px 18px;
+            font-size: .85rem; font-weight: 600; cursor: pointer;
+            transition: background .18s, color .18s;
+        }
+        .danger-btn:hover { background: var(--accent-danger, #DC2626); color: #fff; }
+    </style>
+</head>
+<body class="bg-secondary-theme">
+
+<!-- NAV -->
+<nav class="navbar navbar-expand-lg fintech-nav sticky-top py-3">
+    <div class="container-xl">
+        <a class="navbar-brand d-flex align-items-center gap-2" href="../index.html"
+           style="font-family:var(--font-heading);font-weight:700;color:var(--text-primary)">
+            <i class="fas fa-shield-alt" style="color:var(--accent-secondary)"></i> FutureFund
+        </a>
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+            <i class="fas fa-bars" style="color:var(--text-secondary)"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="nav">
+            <ul class="navbar-nav ms-auto align-items-center gap-1">
+                <li><a class="nav-link fw-medium" style="color:var(--text-secondary)" href="dashboard.html">Dashboard</a></li>
+                <li><a class="nav-link fw-medium" style="color:var(--text-secondary)" href="planner/step1-personal.html">Planner</a></li>
+                <li><a class="nav-link fw-medium" style="color:var(--text-secondary)" href="calculators.html">Calculators</a></li>
+                <li><a class="nav-link fw-medium" style="color:var(--text-secondary)" href="resources.html">Resources</a></li>
+                <li class="nav-item ms-1">
+                    <div class="theme-toggle" id="themeToggle">
+                        <i class="fas fa-moon" id="themeIcon"></i>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- HEADER -->
+<header class="profile-header">
+    <div class="container-xl">
+        <div class="d-flex align-items-center gap-4">
+            <div class="avatar-circle" id="avatarInitial">U</div>
+            <div>
+                <p style="font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:.25rem">Your Profile</p>
+                <h1 class="fw-bold mb-1" id="profileName" style="font-family:var(--font-heading);color:var(--text-primary)">FutureFund User</h1>
+                <p style="color:var(--text-muted);font-size:.9rem;margin:0" id="profileOccupation">Complete your planner to personalise your profile.</p>
+            </div>
+            <div class="ms-auto d-none d-md-flex gap-3">
+                <a href="planner/step1-personal.html" class="btn btn-outline-fintech btn-sm">
+                    <i class="fas fa-edit me-1"></i>Update Profile
+                </a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- MAIN CONTENT -->
+<div class="container-xl py-5">
+    <div class="row g-4">
+
+        <!-- LEFT: Profile Stats -->
+        <div class="col-lg-4">
+
+            <!-- Stats -->
+            <div class="profile-card">
+                <span class="section-title">Financial Summary</span>
+                <div class="row g-2 mb-3">
+                    <div class="col-6">
+                        <div class="stat-box">
+                            <p style="font-size:.72rem;color:var(--text-muted);margin-bottom:.25rem;text-transform:uppercase;letter-spacing:.06em">Health Score</p>
+                            <h4 class="fw-bold mb-0" id="statScore" style="color:var(--accent-secondary)">—</h4>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="stat-box">
+                            <p style="font-size:.72rem;color:var(--text-muted);margin-bottom:.25rem;text-transform:uppercase;letter-spacing:.06em">Net Worth</p>
+                            <h4 class="fw-bold mb-0" id="statNetWorth" style="color:var(--text-primary);font-size:1rem">—</h4>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="stat-box">
+                            <p style="font-size:.72rem;color:var(--text-muted);margin-bottom:.25rem;text-transform:uppercase;letter-spacing:.06em">Goals</p>
+                            <h4 class="fw-bold mb-0" id="statGoals" style="color:var(--text-primary)">—</h4>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="stat-box">
+                            <p style="font-size:.72rem;color:var(--text-muted);margin-bottom:.25rem;text-transform:uppercase;letter-spacing:.06em">Risk Profile</p>
+                            <h4 class="fw-bold mb-0" id="statRisk" style="color:var(--text-primary);font-size:.9rem">—</h4>
+                        </div>
+                    </div>
+                </div>
+                <a href="dashboard.html" class="btn btn-primary-fintech btn-sm w-100">
+                    <i class="fas fa-chart-line me-1"></i>Open Dashboard
+                </a>
+            </div>
+
+            <!-- Data Actions -->
+            <div class="profile-card">
+                <span class="section-title">Data Management</span>
+                <div class="d-grid gap-2">
+                    <button class="btn btn-outline-fintech btn-sm text-start" id="exportBtn">
+                        <i class="fas fa-download me-2"></i>Export My Data (JSON)
+                    </button>
+                    <button class="btn btn-outline-fintech btn-sm text-start" id="importBtn">
+                        <i class="fas fa-upload me-2"></i>Import Data
+                    </button>
+                    <input type="file" id="importFile" accept=".json" style="display:none">
+                    <hr style="border-color:var(--border-color);margin:.25rem 0">
+                    <button class="danger-btn w-100 text-start" id="resetBtn">
+                        <i class="fas fa-trash-alt me-2"></i>Reset All Data
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- RIGHT: Settings -->
+        <div class="col-lg-8">
+
+            <!-- Appearance -->
+            <div class="profile-card">
+                <span class="section-title">Appearance</span>
+
+                <div class="setting-row">
+                    <div>
+                        <div class="setting-label"><i class="fas fa-moon me-2" style="color:var(--accent-primary)"></i>Dark Mode</div>
+                        <div class="setting-desc">Switch between light and dark interface.</div>
+                    </div>
+                    <div class="toggle-switch" id="darkModeToggle"></div>
+                </div>
+            </div>
+
+            <!-- Financial Assumptions -->
+            <div class="profile-card">
+                <span class="section-title">Financial Assumptions</span>
+                <p style="color:var(--text-muted);font-size:.82rem;margin-bottom:1.25rem">These values are used by the Intelligence Engine when running calculations.</p>
+
+                <div class="row g-3">
+                    <div class="col-sm-6">
+                        <label class="form-label fw-semibold" style="font-size:.85rem">Expected Annual Return (%)</label>
+                        <input type="number" class="form-control" id="settingReturn" value="12" min="1" max="30">
+                        <div class="form-text" style="font-size:.75rem">Used for investment projections. Default: 12%</div>
+                    </div>
+                    <div class="col-sm-6">
+                        <label class="form-label fw-semibold" style="font-size:.85rem">Expected Inflation (%)</label>
+                        <input type="number" class="form-control" id="settingInflation" value="6" min="1" max="20">
+                        <div class="form-text" style="font-size:.75rem">Used for retirement and goal planning. Default: 6%</div>
+                    </div>
+                    <div class="col-sm-6">
+                        <label class="form-label fw-semibold" style="font-size:.85rem">Currency</label>
+                        <select class="form-select" id="settingCurrency">
+                            <option value="INR" selected>₹ INR — Indian Rupee</option>
+                            <option value="USD">$ USD — US Dollar</option>
+                            <option value="EUR">€ EUR — Euro</option>
+                            <option value="GBP">£ GBP — British Pound</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-6">
+                        <label class="form-label fw-semibold" style="font-size:.85rem">Safe Withdrawal Rate (%)</label>
+                        <input type="number" class="form-control" id="settingWithdrawal" value="4" min="2" max="8" step="0.5">
+                        <div class="form-text" style="font-size:.75rem">Annual withdrawal % in retirement. Default: 4%</div>
+                    </div>
+                </div>
+                <button class="btn btn-primary-fintech btn-sm mt-3" id="saveSettingsBtn">
+                    <i class="fas fa-save me-1"></i>Save Settings
+                </button>
+                <span class="ms-2 small text-success d-none" id="saveConfirm">✓ Saved!</span>
+            </div>
+
+            <!-- About -->
+            <div class="profile-card">
+                <span class="section-title">About FutureFund</span>
+                <div class="row g-3">
+                    <div class="col-sm-4">
+                        <p style="font-size:.78rem;color:var(--text-muted);margin-bottom:.2rem">Version</p>
+                        <p style="font-weight:600;color:var(--text-primary);font-size:.9rem;margin:0">2.0.0</p>
+                    </div>
+                    <div class="col-sm-4">
+                        <p style="font-size:.78rem;color:var(--text-muted);margin-bottom:.2rem">Architecture</p>
+                        <p style="font-weight:600;color:var(--text-primary);font-size:.9rem;margin:0">Offline-First + Node API</p>
+                    </div>
+                    <div class="col-sm-4">
+                        <p style="font-size:.78rem;color:var(--text-muted);margin-bottom:.2rem">Privacy</p>
+                        <p style="font-weight:600;color:var(--accent-secondary);font-size:.9rem;margin:0"><i class="fas fa-lock me-1"></i>LocalStorage Only</p>
+                    </div>
+                </div>
+                <p style="color:var(--text-muted);font-size:.8rem;margin-top:1rem;margin-bottom:0">FutureFund is an educational financial planning application. All calculations are rule-based estimates and should not be treated as professional financial advice.</p>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../js/storage.js"></script>
+<script src="../js/utils.js"></script>
+<script>
+/* ── Theme ──────────────────────────────────────────────── */
+const savedTheme = localStorage.getItem('futurefund_theme') || 'light';
+document.documentElement.setAttribute('data-theme', savedTheme);
+
+const themeToggleNav = document.getElementById('themeToggle');
+const themeIconNav   = document.getElementById('themeIcon');
+const darkModeToggle = document.getElementById('darkModeToggle');
+
+function syncTheme() {
+    const dark = document.documentElement.getAttribute('data-theme') === 'dark';
+    themeIconNav.className = dark ? 'fas fa-sun' : 'fas fa-moon';
+    dark ? darkModeToggle.classList.add('active') : darkModeToggle.classList.remove('active');
+}
+syncTheme();
+
+function toggleTheme() {
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    localStorage.setItem('futurefund_theme', isDark ? 'light' : 'dark');
+    syncTheme();
+}
+themeToggleNav.addEventListener('click', toggleTheme);
+darkModeToggle.addEventListener('click', toggleTheme);
+
+/* ── Load Profile Data ───────────────────────────────────── */
+const report = FutureFundStorage ? FutureFundStorage.get('financial_report') : null;
+const step1  = FutureFundStorage ? FutureFundStorage.get('planner_step1') : null;
+
+if (step1 && step1.fullName) {
+    const name = step1.fullName;
+    document.getElementById('profileName').textContent = name;
+    document.getElementById('avatarInitial').textContent = name.charAt(0).toUpperCase();
+}
+if (step1 && step1.occupationType) {
+    document.getElementById('profileOccupation').textContent = step1.occupationType;
+}
+
+if (report) {
+    const fmt = FutureFundUtils ? FutureFundUtils.formatCurrency : v => '₹' + v;
+    document.getElementById('statScore').textContent    = (report.health?.totalScore || '—') + (report.health?.totalScore ? '/100' : '');
+    document.getElementById('statNetWorth').textContent = fmt(report.metrics?.netWorth || 0);
+    document.getElementById('statGoals').textContent    = (report.goals?.length || 0) + ' Goals';
+    document.getElementById('statRisk').textContent     = report.risk?.profile || '—';
+}
+
+/* ── Load saved settings ─────────────────────────────────── */
+const SETTINGS_KEY = 'ff_settings';
+const settings = JSON.parse(localStorage.getItem(SETTINGS_KEY) || '{}');
+if (settings.expectedReturn) document.getElementById('settingReturn').value = settings.expectedReturn;
+if (settings.inflation)      document.getElementById('settingInflation').value = settings.inflation;
+if (settings.currency)       document.getElementById('settingCurrency').value = settings.currency;
+if (settings.withdrawalRate) document.getElementById('settingWithdrawal').value = settings.withdrawalRate;
+
+/* ── Save Settings ───────────────────────────────────────── */
+document.getElementById('saveSettingsBtn').addEventListener('click', () => {
+    const s = {
+        expectedReturn: document.getElementById('settingReturn').value,
+        inflation:      document.getElementById('settingInflation').value,
+        currency:       document.getElementById('settingCurrency').value,
+        withdrawalRate: document.getElementById('settingWithdrawal').value
+    };
+    localStorage.setItem(SETTINGS_KEY, JSON.stringify(s));
+    const confirm = document.getElementById('saveConfirm');
+    confirm.classList.remove('d-none');
+    setTimeout(() => confirm.classList.add('d-none'), 2000);
+});
+
+/* ── Export Data ─────────────────────────────────────────── */
+document.getElementById('exportBtn').addEventListener('click', () => {
+    const keys = ['planner_step1','planner_step2','planner_step3','planner_step4','planner_step5','planner_step6','financial_report','ff_settings','ff_bookmarks'];
+    const data = {};
+    keys.forEach(k => { const v = localStorage.getItem(k); if (v) data[k] = JSON.parse(v); });
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+    a.download = `futurefund_export_${new Date().toISOString().split('T')[0]}.json`;
+    a.click();
+});
+
+/* ── Import Data ─────────────────────────────────────────── */
+document.getElementById('importBtn').addEventListener('click', () => document.getElementById('importFile').click());
+document.getElementById('importFile').addEventListener('change', e => {
+    const file = e.target.files[0]; if (!file) return;
+    const reader = new FileReader();
+    reader.onload = ev => {
+        try {
+            const data = JSON.parse(ev.target.result);
+            Object.keys(data).forEach(k => localStorage.setItem(k, JSON.stringify(data[k])));
+            alert('Data imported successfully! Reload the page to see changes.');
+            location.reload();
+        } catch { alert('Invalid file format. Please export from FutureFund and re-import.'); }
+    };
+    reader.readAsText(file);
+});
+
+/* ── Reset ───────────────────────────────────────────────── */
+document.getElementById('resetBtn').addEventListener('click', () => {
+    if (confirm('This will permanently delete all your FutureFund data. Are you sure?')) {
+        const keys = ['planner_step1','planner_step2','planner_step3','planner_step4','planner_step5','planner_step6','financial_report','ff_settings','ff_bookmarks'];
+        keys.forEach(k => localStorage.removeItem(k));
+        window.location.href = '../index.html';
+    }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FutureFund | Financial Calculators</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <style>
+        .calc-hub-header {
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border-color);
+            padding: 4rem 0;
+            text-align: center;
+        }
+        .calc-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2rem;
+            height: 100%;
+            transition: box-shadow 0.2s ease, transform 0.2s ease;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+        }
+        .calc-card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-4px);
+            text-decoration: none;
+        }
+        .calc-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            background: var(--bg-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--accent-primary);
+            margin-bottom: 1.25rem;
+        }
+        .calc-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+        .calc-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+        .calc-tag {
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 6px;
+            background: rgba(30, 58, 138, 0.1);
+            color: var(--accent-primary);
+            display: inline-block;
+        }
+        [data-theme="dark"] .calc-tag {
+            background: rgba(96, 165, 250, 0.15);
+            color: #60a5fa;
+        }
+    </style>
+</head>
+<body class="bg-secondary-theme">
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg fintech-nav sticky-top py-3">
+    <div class="container-xl">
+        <a class="navbar-brand fw-bold fs-5 text-primary-theme d-flex align-items-center gap-2" href="../index.html">
+            <i class="fas fa-shield-alt" style="color:var(--accent-secondary)"></i> FutureFund
+        </a>
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+            <i class="fas fa-bars text-primary-theme"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="nav">
+            <ul class="navbar-nav ms-auto align-items-center gap-2">
+                <li><a class="nav-link fw-medium text-primary-theme" href="dashboard.html">Dashboard</a></li>
+                <li><a class="nav-link fw-medium text-primary-theme" href="planner/step1-personal.html">Planner</a></li>
+                <li><a class="nav-link fw-medium text-primary-theme active" href="calculators.html">Calculators</a></li>
+                <li><a class="nav-link fw-medium text-primary-theme" href="resources.html">Resources</a></li>
+                <li class="theme-toggle ms-1" style="cursor:pointer"><i class="fas fa-moon text-primary-theme fs-5"></i></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- HEADER -->
+<header class="calc-hub-header">
+    <div class="container-xl">
+        <span class="section-label mb-2 d-inline-block">Tools & Utilities</span>
+        <h1 class="fw-bold text-primary-theme mb-3">Educational Financial Calculators</h1>
+        <p class="text-secondary-theme fs-5 mx-auto mb-0" style="max-width:600px;">
+            Don't just run numbers. Understand them. Our calculators provide visual insights, formulas, and personalized advice.
+        </p>
+    </div>
+</header>
+
+<!-- GRID -->
+<div class="container-xl py-5">
+    <div class="row g-4 mb-5">
+        
+        <!-- SIP -->
+        <div class="col-md-6 col-lg-4">
+            <a href="calculators/sip.html" class="calc-card">
+                <div class="calc-icon"><i class="fas fa-chart-line"></i></div>
+                <h3 class="calc-title">SIP Calculator</h3>
+                <p class="calc-desc">Calculate the future value of your monthly mutual fund investments through the power of compounding.</p>
+                <div><span class="calc-tag">Investing</span></div>
+            </a>
+        </div>
+
+        <!-- EMI -->
+        <div class="col-md-6 col-lg-4">
+            <a href="calculators/emi.html" class="calc-card">
+                <div class="calc-icon"><i class="fas fa-home"></i></div>
+                <h3 class="calc-title">EMI Calculator</h3>
+                <p class="calc-desc">Calculate your monthly loan repayment and view the complete amortization schedule and interest breakdown.</p>
+                <div><span class="calc-tag">Debt Management</span></div>
+            </a>
+        </div>
+
+        <!-- Compound Interest -->
+        <div class="col-md-6 col-lg-4">
+            <a href="calculators/compound.html" class="calc-card">
+                <div class="calc-icon"><i class="fas fa-coins"></i></div>
+                <h3 class="calc-title">Compound Interest</h3>
+                <p class="calc-desc">See how a single lump-sum investment grows over time with different compounding frequencies.</p>
+                <div><span class="calc-tag">Investing</span></div>
+            </a>
+        </div>
+
+        <!-- Retirement -->
+        <div class="col-md-6 col-lg-4">
+            <a href="calculators/retirement.html" class="calc-card">
+                <div class="calc-icon"><i class="fas fa-umbrella-beach"></i></div>
+                <h3 class="calc-title">Retirement Planner</h3>
+                <p class="calc-desc">Estimate your required retirement corpus adjusting for inflation and post-retirement withdrawal rates.</p>
+                <div><span class="calc-tag">Planning</span></div>
+            </a>
+        </div>
+
+        <!-- Goal Planner -->
+        <div class="col-md-6 col-lg-4">
+            <a href="calculators/goal.html" class="calc-card">
+                <div class="calc-icon"><i class="fas fa-bullseye"></i></div>
+                <h3 class="calc-title">Goal Planner</h3>
+                <p class="calc-desc">Reverse-calculate exactly how much you need to save monthly to reach a specific financial target.</p>
+                <div><span class="calc-tag">Planning</span></div>
+            </a>
+        </div>
+
+        <!-- Emergency Fund -->
+        <div class="col-md-6 col-lg-4">
+            <a href="calculators/emergency.html" class="calc-card">
+                <div class="calc-icon"><i class="fas fa-life-ring"></i></div>
+                <h3 class="calc-title">Emergency Fund</h3>
+                <p class="calc-desc">Calculate your ideal safety net based on your fixed expenses, dependents, and risk profile.</p>
+                <div><span class="calc-tag">Protection</span></div>
+            </a>
+        </div>
+
+        <!-- Inflation -->
+        <div class="col-md-6 col-lg-4">
+            <a href="calculators/inflation.html" class="calc-card">
+                <div class="calc-icon"><i class="fas fa-arrow-trend-up"></i></div>
+                <h3 class="calc-title">Inflation Impact</h3>
+                <p class="calc-desc">Visualize how inflation degrades your purchasing power and how much your expenses will grow.</p>
+                <div><span class="calc-tag">Economics</span></div>
+            </a>
+        </div>
+
+        <!-- Budget -->
+        <div class="col-md-6 col-lg-4">
+            <a href="calculators/budget.html" class="calc-card">
+                <div class="calc-icon"><i class="fas fa-pie-chart"></i></div>
+                <h3 class="calc-title">50/30/20 Budget</h3>
+                <p class="calc-desc">Instantly categorize your income into Needs, Wants, and Savings using the popular budgeting rule.</p>
+                <div><span class="calc-tag">Budgeting</span></div>
+            </a>
+        </div>
+        
+        <!-- Loan Prepayment -->
+        <div class="col-md-6 col-lg-4">
+            <a href="calculators/prepayment.html" class="calc-card">
+                <div class="calc-icon"><i class="fas fa-forward"></i></div>
+                <h3 class="calc-title">Loan Prepayment</h3>
+                <p class="calc-desc">Discover how much interest and tenure you can save by making extra payments towards your loan.</p>
+                <div><span class="calc-tag">Debt Management</span></div>
+            </a>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../js/app.js"></script>
+</body>
+</html>

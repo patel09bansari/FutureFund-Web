@@ -1,0 +1,22 @@
+/*
+ * css/animations.css
+ * Subtle transitions for a professional feel.
+ */
+
+.subtle-fade {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.subtle-fade.visible {
+    opacity: 1;
+}
+
+.hover-elevation {
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.hover-elevation:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-4px);
+}

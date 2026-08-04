@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FutureFund | Step 2: Income</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="../../css/main.css">
+</head>
+<body class="bg-secondary-theme">
+    
+    <!-- Simple Navbar -->
+    <nav class="navbar fintech-nav py-3">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-5 text-primary-theme d-flex align-items-center gap-2" href="../../index.html">
+                <i class="fas fa-shield-alt text-success" style="color: var(--accent-secondary) !important;"></i> FutureFund Planner
+            </a>
+            <div class="ms-auto">
+                <a href="../../index.html" class="btn btn-sm btn-outline-fintech">Save & Exit</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                
+                <!-- Progress Indicator -->
+                <div class="d-flex justify-content-between align-items-center mb-4 position-relative">
+                    <div class="progress position-absolute w-100" style="height: 2px; top: 50%; z-index: 1;">
+                        <div class="progress-bar" role="progressbar" style="width: 20%; background-color: var(--accent-primary);"></div>
+                    </div>
+                    
+                    <div class="rounded-circle d-flex align-items-center justify-content-center position-relative z-3 fw-bold bg-white text-primary border" style="width: 40px; height: 40px; border-color: var(--accent-primary) !important;"><i class="fas fa-check"></i></div>
+                    <div class="rounded-circle d-flex align-items-center justify-content-center position-relative z-3 fw-bold" style="width: 40px; height: 40px; background-color: var(--accent-primary); color: white;">2</div>
+                    <div class="rounded-circle d-flex align-items-center justify-content-center position-relative z-3 bg-white border fw-bold text-muted-theme" style="width: 40px; height: 40px; border-color: var(--border-color) !important;">3</div>
+                    <div class="rounded-circle d-flex align-items-center justify-content-center position-relative z-3 bg-white border fw-bold text-muted-theme" style="width: 40px; height: 40px; border-color: var(--border-color) !important;">4</div>
+                    <div class="rounded-circle d-flex align-items-center justify-content-center position-relative z-3 bg-white border fw-bold text-muted-theme" style="width: 40px; height: 40px; border-color: var(--border-color) !important;">5</div>
+                    <div class="rounded-circle d-flex align-items-center justify-content-center position-relative z-3 bg-white border fw-bold text-muted-theme" style="width: 40px; height: 40px; border-color: var(--border-color) !important;">6</div>
+                </div>
+                
+                <p class="text-center text-muted-theme fw-medium mb-5">Step 2: Income Details</p>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <!-- Form Card -->
+                        <div class="fintech-card p-5 h-100">
+                            <h2 class="h3 mb-4">Your Income Streams</h2>
+                            <p class="text-secondary-theme mb-4">Understanding your cash flow is the first step to building wealth.</p>
+                            
+                            <form id="step2-form" data-step="2">
+                                <div class="row g-4">
+                                    <div class="col-12">
+                                        <label class="form-label fw-medium">Primary Monthly Income (After Tax)</label>
+                                        <div class="input-group input-group-lg">
+                                            <span class="input-group-text">₹</span>
+                                            <input type="number" class="form-control" name="primaryIncome" required min="0" placeholder="50000" id="primaryIncomeInput">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-12">
+                                        <label class="form-label fw-medium">Additional Monthly Income (Freelance, Rental, etc.)</label>
+                                        <div class="input-group input-group-lg">
+                                            <span class="input-group-text">₹</span>
+                                            <input type="number" class="form-control" name="additionalIncome" min="0" placeholder="10000" id="additionalIncomeInput" value="0">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-12">
+                                        <label class="form-label fw-medium">Expected Annual Salary Growth (%)</label>
+                                        <div class="input-group input-group-lg">
+                                            <input type="number" class="form-control" name="salaryGrowth" required min="0" max="100" placeholder="10">
+                                            <span class="input-group-text">%</span>
+                                        </div>
+                                        <div class="form-text">Average is 8-12% in standard industries.</div>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex justify-content-between mt-5">
+                                    <a href="step1-personal.html" class="btn btn-outline-fintech">Back</a>
+                                    <button type="submit" class="btn btn-primary-fintech px-5">Continue <i class="fas fa-arrow-right ms-2"></i></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4 mt-4 mt-md-0">
+                        <!-- Live Summary Card -->
+                        <div class="fintech-card p-4 bg-primary text-white sticky-top" style="top: 100px; background-color: var(--accent-primary) !important;">
+                            <h4 class="mb-4 text-white">Income Summary</h4>
+                            
+                            <div class="mb-3">
+                                <p class="mb-1 text-white-50 small">Primary</p>
+                                <h5 class="text-white" id="summaryPrimary">₹0</h5>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <p class="mb-1 text-white-50 small">Additional</p>
+                                <h5 class="text-white" id="summaryAdditional">₹0</h5>
+                            </div>
+                            
+                            <hr class="border-light opacity-25">
+                            
+                            <div>
+                                <p class="mb-1 text-white-50 small">Total Monthly Income</p>
+                                <h3 class="text-white fw-bold" id="summaryTotal">₹0</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../js/storage.js"></script>
+    <script src="../../js/utils.js"></script>
+    <script src="../../js/planner.js"></script>
+    <script>
+        // Specific UI logic for live updating summary card
+        document.addEventListener('DOMContentLoaded', () => {
+            const primaryInput = document.getElementById('primaryIncomeInput');
+            const additionalInput = document.getElementById('additionalIncomeInput');
+            const summaryPrimary = document.getElementById('summaryPrimary');
+            const summaryAdditional = document.getElementById('summaryAdditional');
+            const summaryTotal = document.getElementById('summaryTotal');
+            
+            function updateSummary() {
+                const primary = parseFloat(primaryInput.value) || 0;
+                const additional = parseFloat(additionalInput.value) || 0;
+                const total = primary + additional;
+                
+                summaryPrimary.textContent = FutureFundUtils.formatCurrency(primary);
+                summaryAdditional.textContent = FutureFundUtils.formatCurrency(additional);
+                summaryTotal.textContent = FutureFundUtils.formatCurrency(total);
+            }
+            
+            primaryInput.addEventListener('input', updateSummary);
+            additionalInput.addEventListener('input', updateSummary);
+            
+            // Initial call if values exist (from auto-save restore)
+            setTimeout(updateSummary, 100); 
+        });
+    </script>
+</body>
+</html>

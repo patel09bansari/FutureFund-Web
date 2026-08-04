@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resources & Learning Hub | FutureFund</title>
+    <meta name="description" content="Learn personal finance — from budgeting basics to advanced investing. Free, offline, beginner-friendly.">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <style>
+        .resources-header {
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border-color);
+            padding: 4rem 0 3rem;
+        }
+        .category-badge {
+            font-size: .75rem;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 99px;
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+        .article-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg, 14px);
+            padding: 1.75rem;
+            height: 100%;
+            transition: box-shadow .2s ease, transform .2s ease;
+            cursor: pointer;
+        }
+        .article-card:hover {
+            box-shadow: 0 8px 24px rgba(0,0,0,.08);
+            transform: translateY(-3px);
+        }
+        .article-meta {
+            font-size: .78rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: .75rem;
+        }
+        .diff-pill {
+            font-size: .7rem;
+            font-weight: 700;
+            padding: 2px 9px;
+            border-radius: 99px;
+            text-transform: uppercase;
+            letter-spacing: .05em;
+        }
+        .diff-beginner  { background: #dcfce7; color: #15803d; }
+        .diff-intermediate { background: #fef3c7; color: #92400e; }
+        .diff-advanced  { background: #fee2e2; color: #991b1b; }
+        [data-theme="dark"] .diff-beginner  { background: rgba(22,163,74,.15); color: #4ade80; }
+        [data-theme="dark"] .diff-intermediate { background: rgba(245,158,11,.15); color: #fbbf24; }
+        [data-theme="dark"] .diff-advanced  { background: rgba(239,68,68,.15); color: #f87171; }
+        .section-tabs .nav-link {
+            color: var(--text-secondary);
+            border: none;
+            border-bottom: 2px solid transparent;
+            border-radius: 0;
+            padding: .5rem 1rem;
+            font-weight: 500;
+            font-size: .9rem;
+            transition: color .18s, border-color .18s;
+        }
+        .section-tabs .nav-link.active,
+        .section-tabs .nav-link:hover {
+            color: var(--accent-primary);
+            border-bottom-color: var(--accent-primary);
+            background: transparent;
+        }
+        .search-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: .65rem 1rem;
+            color: var(--text-primary);
+            font-size: .9rem;
+            width: 100%;
+            outline: none;
+            transition: border-color .18s;
+        }
+        .search-box:focus { border-color: var(--accent-primary); }
+        [data-theme="dark"] .search-box { background: var(--bg-secondary); }
+    </style>
+</head>
+<body class="bg-secondary-theme">
+
+<!-- NAV -->
+<nav class="navbar navbar-expand-lg fintech-nav sticky-top py-3">
+    <div class="container-xl">
+        <a class="navbar-brand d-flex align-items-center gap-2" href="../index.html"
+           style="font-family:var(--font-heading);font-weight:700;color:var(--text-primary)">
+            <i class="fas fa-shield-alt" style="color:var(--accent-secondary)"></i> FutureFund
+        </a>
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+            <i class="fas fa-bars" style="color:var(--text-secondary)"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="nav">
+            <ul class="navbar-nav ms-auto align-items-center gap-1">
+                <li><a class="nav-link fw-medium" style="color:var(--text-secondary)" href="dashboard.html">Dashboard</a></li>
+                <li><a class="nav-link fw-medium" style="color:var(--text-secondary)" href="planner/step1-personal.html">Planner</a></li>
+                <li><a class="nav-link fw-medium" style="color:var(--text-secondary)" href="calculators.html">Calculators</a></li>
+                <li><a class="nav-link fw-medium" style="color:var(--accent-primary);font-weight:600" href="resources.html">Resources</a></li>
+                <li class="nav-item ms-1">
+                    <div class="theme-toggle" id="themeToggle" title="Toggle dark mode">
+                        <i class="fas fa-moon" id="themeIcon"></i>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- HEADER -->
+<header class="resources-header">
+    <div class="container-xl">
+        <p style="font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:.5rem">Learning Hub</p>
+        <h1 class="fw-bold mb-3" style="font-family:var(--font-heading);color:var(--text-primary)">Financial Education Center</h1>
+        <p style="color:var(--text-secondary);font-size:1.05rem;max-width:560px;margin-bottom:1.5rem">
+            Learn everything from budgeting basics to advanced investing — written specifically for beginners who want to build real financial knowledge.
+        </p>
+        <!-- Search -->
+        <div style="max-width:420px">
+            <div style="position:relative">
+                <i class="fas fa-search" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--text-muted);font-size:.85rem"></i>
+                <input type="text" class="search-box" id="searchInput" placeholder="Search articles..." style="padding-left:2.5rem">
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- CATEGORY TABS -->
+<div class="container-xl pt-4 pb-2">
+    <ul class="nav section-tabs border-bottom" style="border-color:var(--border-color)">
+        <li class="nav-item"><button class="nav-link active" data-cat="all">All</button></li>
+        <li class="nav-item"><button class="nav-link" data-cat="budgeting">Budgeting</button></li>
+        <li class="nav-item"><button class="nav-link" data-cat="emergency">Emergency Fund</button></li>
+        <li class="nav-item"><button class="nav-link" data-cat="investing">Investing</button></li>
+        <li class="nav-item"><button class="nav-link" data-cat="insurance">Insurance</button></li>
+        <li class="nav-item"><button class="nav-link" data-cat="debt">Debt & Loans</button></li>
+        <li class="nav-item"><button class="nav-link" data-cat="retirement">Retirement</button></li>
+        <li class="nav-item"><button class="nav-link" data-cat="tax">Tax</button></li>
+        <li class="nav-item"><button class="nav-link" data-cat="credit">Credit Score</button></li>
+    </ul>
+</div>
+
+<!-- ARTICLES GRID -->
+<div class="container-xl py-4 pb-5">
+    <div class="row g-4" id="articlesGrid">
+        <!-- Cards injected by JS -->
+    </div>
+    <p class="text-center py-5 d-none text-muted-theme" id="noResults">No articles found. Try a different search or category.</p>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../js/app.js"></script>
+<script>
+/* ── Article data ─────────────────────────────────────────── */
+const ARTICLES = [
+    {
+        title: 'The 50/30/20 Rule Explained',
+        desc: 'A simple framework for allocating your income: 50% needs, 30% wants, 20% savings.',
+        category: 'budgeting', difficulty: 'beginner', readTime: '5 min',
+        icon: 'fa-pie-chart', tags: ['budgeting', 'savings', 'income']
+    },
+    {
+        title: 'Zero-Based Budgeting: Every Rupee Has a Job',
+        desc: 'Learn how to assign every rupee of income to a category so nothing is unaccounted for.',
+        category: 'budgeting', difficulty: 'beginner', readTime: '7 min',
+        icon: 'fa-equals', tags: ['budgeting', 'planning']
+    },
+    {
+        title: 'Why You Need an Emergency Fund First',
+        desc: 'Before investing a single rupee, build a financial safety net of 3–6 months of expenses.',
+        category: 'emergency', difficulty: 'beginner', readTime: '6 min',
+        icon: 'fa-life-ring', tags: ['emergency', 'savings', 'foundation']
+    },
+    {
+        title: 'How Much Should Your Emergency Fund Be?',
+        desc: 'Calculate the ideal amount based on your expenses, job stability, and number of dependents.',
+        category: 'emergency', difficulty: 'beginner', readTime: '4 min',
+        icon: 'fa-calculator', tags: ['emergency', 'calculation']
+    },
+    {
+        title: 'What is an SIP and How Does It Work?',
+        desc: 'Systematic Investment Plans (SIPs) explained for absolute beginners — no jargon.',
+        category: 'investing', difficulty: 'beginner', readTime: '8 min',
+        icon: 'fa-chart-line', tags: ['sip', 'mutual funds', 'investing']
+    },
+    {
+        title: 'Equity vs Debt Mutual Funds: Which Is Right for You?',
+        desc: 'Understand the difference and learn how to pick funds based on your risk profile and timeline.',
+        category: 'investing', difficulty: 'intermediate', readTime: '10 min',
+        icon: 'fa-scale-balanced', tags: ['mutual funds', 'equity', 'debt']
+    },
+    {
+        title: 'The Power of Compounding: Start Early',
+        desc: "Einstein called it the 8th wonder of the world. See why starting 5 years earlier makes such a dramatic difference.",
+        category: 'investing', difficulty: 'beginner', readTime: '5 min',
+        icon: 'fa-seedling', tags: ['compounding', 'time value', 'investing']
+    },
+    {
+        title: 'Term Insurance vs Whole Life: What Should You Buy?',
+        desc: 'Most people overpay for insurance. Learn why term insurance is almost always the right answer.',
+        category: 'insurance', difficulty: 'beginner', readTime: '7 min',
+        icon: 'fa-shield-alt', tags: ['insurance', 'term', 'life insurance']
+    },
+    {
+        title: 'Health Insurance Explained: Covers, Deductibles & Claims',
+        desc: 'Understand what your health policy actually covers, and how to use it effectively.',
+        category: 'insurance', difficulty: 'intermediate', readTime: '9 min',
+        icon: 'fa-hospital', tags: ['health insurance', 'claims', 'premium']
+    },
+    {
+        title: 'Good Debt vs Bad Debt: Know the Difference',
+        desc: "Not all debt is equal. Learn which loans build wealth and which ones drain it.",
+        category: 'debt', difficulty: 'beginner', readTime: '6 min',
+        icon: 'fa-hand-holding-dollar', tags: ['debt', 'loans', 'credit']
+    },
+    {
+        title: 'How to Pay Off Loans Faster: Snowball vs Avalanche',
+        desc: 'Two proven strategies for becoming debt-free — which one suits your psychology?',
+        category: 'debt', difficulty: 'intermediate', readTime: '8 min',
+        icon: 'fa-forward', tags: ['debt', 'repayment', 'strategy']
+    },
+    {
+        title: 'Retirement Planning at Every Age: 20s, 30s, 40s',
+        desc: 'Your retirement strategy should change as you age. Here\'s what to prioritize at each stage.',
+        category: 'retirement', difficulty: 'intermediate', readTime: '12 min',
+        icon: 'fa-umbrella-beach', tags: ['retirement', 'planning', 'corpus']
+    },
+    {
+        title: 'The 25x Rule for Retirement',
+        desc: 'Calculate exactly how large your retirement corpus needs to be using the simple 25x rule.',
+        category: 'retirement', difficulty: 'beginner', readTime: '5 min',
+        icon: 'fa-xmark', tags: ['retirement', 'corpus', 'calculation']
+    },
+    {
+        title: 'Income Tax Slabs in India: Old vs New Regime',
+        desc: 'A plain-English comparison of the two tax regimes with real examples to help you pick the right one.',
+        category: 'tax', difficulty: 'beginner', readTime: '10 min',
+        icon: 'fa-file-invoice', tags: ['tax', 'income tax', 'india']
+    },
+    {
+        title: 'Section 80C Investments: What to Choose?',
+        desc: 'ELSS, PPF, NPS, LIC — compare all 80C options and pick the best for your situation.',
+        category: 'tax', difficulty: 'intermediate', readTime: '9 min',
+        icon: 'fa-receipt', tags: ['tax', '80c', 'elss', 'ppf']
+    },
+    {
+        title: 'How Your Credit Score is Calculated',
+        desc: 'Understand the 5 factors that determine your CIBIL score and how to improve each one.',
+        category: 'credit', difficulty: 'beginner', readTime: '7 min',
+        icon: 'fa-star-half-stroke', tags: ['credit score', 'cibil', 'loans']
+    },
+    {
+        title: 'How to Build Credit From Scratch',
+        desc: 'Step-by-step guide for building a strong credit history if you have never borrowed before.',
+        category: 'credit', difficulty: 'beginner', readTime: '6 min',
+        icon: 'fa-building-columns', tags: ['credit score', 'beginner', 'credit card']
+    },
+];
+
+/* ── Bookmarks from localStorage ──────────────────────────── */
+const BOOKMARK_KEY = 'ff_bookmarks';
+function getBookmarks() { return JSON.parse(localStorage.getItem(BOOKMARK_KEY) || '[]'); }
+function toggleBookmark(title) {
+    let b = getBookmarks();
+    if (b.includes(title)) b = b.filter(t => t !== title);
+    else b.push(title);
+    localStorage.setItem(BOOKMARK_KEY, JSON.stringify(b));
+}
+
+/* ── Render ────────────────────────────────────────────────── */
+function renderArticles(list) {
+    const grid = document.getElementById('articlesGrid');
+    const none = document.getElementById('noResults');
+    if (!list.length) { grid.innerHTML = ''; none.classList.remove('d-none'); return; }
+    none.classList.add('d-none');
+    const bookmarks = getBookmarks();
+    grid.innerHTML = list.map(a => {
+        const diffClass = { beginner: 'diff-beginner', intermediate: 'diff-intermediate', advanced: 'diff-advanced' }[a.difficulty] || 'diff-beginner';
+        const diffLabel = a.difficulty.charAt(0).toUpperCase() + a.difficulty.slice(1);
+        const isBookmarked = bookmarks.includes(a.title);
+        return `
+        <div class="col-md-6 col-lg-4">
+            <div class="article-card">
+                <div class="d-flex justify-content-between align-items-start mb-3">
+                    <div style="width:44px;height:44px;border-radius:10px;background:var(--bg-secondary);display:flex;align-items:center;justify-content:center;color:var(--accent-primary);font-size:1.1rem;flex-shrink:0">
+                        <i class="fas ${a.icon}"></i>
+                    </div>
+                    <button onclick="toggleBookmark('${a.title}');this.querySelector('i').style.color=getBookmarks().includes('${a.title}') ? 'var(--accent-warning)' : 'var(--text-muted)'"
+                            style="background:none;border:none;cursor:pointer;padding:4px 8px">
+                        <i class="fas fa-bookmark" style="color:${isBookmarked ? 'var(--accent-warning)' : 'var(--text-muted)'}"></i>
+                    </button>
+                </div>
+                <div class="category-badge">${a.category.replace('-', ' ')}</div>
+                <h5 class="fw-bold mb-2" style="font-size:1rem;color:var(--text-primary);line-height:1.4">${a.title}</h5>
+                <p style="color:var(--text-secondary);font-size:.85rem;line-height:1.6;margin-bottom:.5rem">${a.desc}</p>
+                <div class="article-meta">
+                    <span class="diff-pill ${diffClass}">${diffLabel}</span>
+                    <span><i class="fas fa-clock me-1"></i>${a.readTime} read</span>
+                </div>
+            </div>
+        </div>`;
+    }).join('');
+}
+
+/* ── Filter logic ─────────────────────────────────────────── */
+let activeCategory = 'all';
+let searchQuery = '';
+
+function applyFilters() {
+    let filtered = ARTICLES;
+    if (activeCategory !== 'all') filtered = filtered.filter(a => a.category === activeCategory);
+    if (searchQuery.trim()) {
+        const q = searchQuery.toLowerCase();
+        filtered = filtered.filter(a =>
+            a.title.toLowerCase().includes(q) ||
+            a.desc.toLowerCase().includes(q) ||
+            (a.tags || []).some(t => t.includes(q))
+        );
+    }
+    renderArticles(filtered);
+}
+
+document.querySelectorAll('.section-tabs .nav-link').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.section-tabs .nav-link').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeCategory = btn.dataset.cat;
+        applyFilters();
+    });
+});
+
+document.getElementById('searchInput').addEventListener('input', e => {
+    searchQuery = e.target.value;
+    applyFilters();
+});
+
+/* ── Dark mode sync ───────────────────────────────────────── */
+const savedTheme = localStorage.getItem('futurefund_theme') || 'light';
+document.documentElement.setAttribute('data-theme', savedTheme);
+const themeToggle = document.getElementById('themeToggle');
+const themeIcon   = document.getElementById('themeIcon');
+function syncIcon() {
+    themeIcon.className = document.documentElement.getAttribute('data-theme') === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+}
+syncIcon();
+themeToggle.addEventListener('click', () => {
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    localStorage.setItem('futurefund_theme', isDark ? 'light' : 'dark');
+    syncIcon();
+});
+
+/* ── Init ─────────────────────────────────────────────────── */
+renderArticles(ARTICLES);
+</script>
+</body>
+</html>

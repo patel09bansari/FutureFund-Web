@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FutureFund | Your Personal Financial Planning OS</title>
+    <meta name="description" content="Build a personalized financial roadmap, track goals, understand investments, and make smarter financial decisions — entirely offline.">
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- FutureFund CSS -->
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+    <!-- ── NAVIGATION ──────────────────────────────────────────── -->
+    <nav class="navbar navbar-expand-lg fintech-nav fixed-top py-3" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="index.html"
+               style="font-family:var(--font-heading);font-weight:700;font-size:1.2rem;color:var(--text-primary);letter-spacing:-.02em">
+                <i class="fas fa-shield-alt" style="color:var(--accent-secondary)"></i>
+                FutureFund
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <i class="fas fa-bars" style="color:var(--text-secondary)"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center gap-1">
+                    <li class="nav-item"><a class="nav-link" href="pages/dashboard.html">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="pages/planner/step1-personal.html">Planner</a></li>
+                    <li class="nav-item"><a class="nav-link" href="pages/calculators.html">Calculators</a></li>
+                    <li class="nav-item"><a class="nav-link" href="pages/resources.html">Resources</a></li>
+                    <!-- Dark mode toggle — icon button with hover circle -->
+                    <li class="nav-item ms-1">
+                        <div class="theme-toggle" id="themeToggle" title="Toggle dark mode">
+                            <i class="fas fa-moon" id="themeIcon"></i>
+                        </div>
+                    </li>
+                    <li class="nav-item ms-2">
+                        <a href="pages/profile.html" class="btn btn-outline-fintech btn-sm">Sign In</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ── HERO ────────────────────────────────────────────────── -->
+    <section class="section-padding d-flex align-items-center" style="background:var(--bg-primary);min-height:100vh;padding-top:calc(var(--space-xl) + 72px)">
+        <div class="container">
+            <div class="row align-items-center g-5">
+
+                <!-- Left: Copy -->
+                <div class="col-lg-6" data-aos="fade-up" data-aos-duration="600">
+                    <p class="text-muted-theme fw-semibold mb-3"
+                       style="font-size:.82rem;letter-spacing:.1em;text-transform:uppercase">
+                        Financial Planning OS
+                    </p>
+                    <h1 class="mb-4" style="color:var(--text-primary)">
+                        Plan Your Financial<br>Future With Confidence
+                    </h1>
+                    <p class="mb-5 fw-medium" style="font-size:1.1rem;color:var(--text-secondary);line-height:1.7;max-width:480px">
+                        Build a personalized financial roadmap, track goals, understand investments, and make smarter financial decisions — entirely offline and private.
+                    </p>
+                    <div class="d-flex flex-column flex-sm-row gap-3">
+                        <a href="pages/planner/step1-personal.html" class="btn btn-primary-fintech btn-lg">
+                            <i class="fas fa-arrow-right"></i> Create My Financial Plan
+                        </a>
+                        <a href="#features" class="btn btn-outline-fintech btn-lg">
+                            Explore Features
+                        </a>
+                    </div>
+                    <!-- Trust badges -->
+                    <div class="d-flex align-items-center gap-4 mt-5">
+                        <div class="d-flex align-items-center gap-2" style="color:var(--text-muted);font-size:.85rem">
+                            <i class="fas fa-lock" style="color:var(--accent-secondary)"></i>
+                            <span>100% Offline</span>
+                        </div>
+                        <div class="d-flex align-items-center gap-2" style="color:var(--text-muted);font-size:.85rem">
+                            <i class="fas fa-database" style="color:var(--accent-secondary)"></i>
+                            <span>No Data Stored Online</span>
+                        </div>
+                        <div class="d-flex align-items-center gap-2" style="color:var(--text-muted);font-size:.85rem">
+                            <i class="fas fa-bolt" style="color:var(--accent-secondary)"></i>
+                            <span>Instant Results</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Hero Graph Card (dark navy + emerald line) -->
+                <div class="col-lg-6" data-aos="fade-left" data-aos-delay="150" data-aos-duration="700">
+                    <div class="hero-chart-card">
+                        <!-- Header row -->
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <div>
+                                <p style="color:rgba(255,255,255,.5);font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.2rem">Portfolio Growth</p>
+                                <h4 style="font-size:1.5rem;font-weight:700;color:#fff;margin:0">₹ 12,40,000</h4>
+                            </div>
+                            <span style="background:rgba(5,150,105,.2);color:#6ee7b7;border:1px solid rgba(5,150,105,.3);font-size:.8rem;font-weight:600;padding:4px 12px;border-radius:99px">
+                                <i class="fas fa-arrow-up me-1"></i>+24.6%
+                            </span>
+                        </div>
+
+                        <!-- SVG Chart — refined -->
+                        <svg width="100%" height="220" viewBox="0 0 480 220" fill="none" xmlns="http://www.w3.org/2000/svg" style="overflow:visible">
+                            <!-- Subtle grid lines -->
+                            <line x1="40" y1="190" x2="460" y2="190" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+                            <line x1="40" y1="140" x2="460" y2="140" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+                            <line x1="40" y1="90"  x2="460" y2="90"  stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+                            <line x1="40" y1="40"  x2="460" y2="40"  stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+                            <!-- Y-axis -->
+                            <line x1="40" y1="30" x2="40" y2="195" stroke="rgba(255,255,255,.08)" stroke-width="1"/>
+
+                            <!-- Area fill under curve -->
+                            <defs>
+                                <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
+                                    <stop offset="0%"   stop-color="#059669" stop-opacity="0.25"/>
+                                    <stop offset="100%" stop-color="#059669" stop-opacity="0"/>
+                                </linearGradient>
+                            </defs>
+                            <path d="M40 190 C100 190 100 165 160 155 S220 170 280 120 S360 70 440 35 L440 195 Z"
+                                  fill="url(#areaGrad)"/>
+
+                            <!-- Smooth growth line -->
+                            <path d="M40 190 C100 190 100 165 160 155 S220 170 280 120 S360 70 440 35"
+                                  stroke="#10B981" stroke-width="2.5" fill="none"
+                                  stroke-linecap="round" stroke-linejoin="round"/>
+
+                            <!-- Low-opacity bars (secondary, not competing) -->
+                            <rect x="145" y="155" width="18" height="35" fill="#059669" opacity="0.12" rx="3"/>
+                            <rect x="265" y="120" width="18" height="70" fill="#059669" opacity="0.12" rx="3"/>
+                            <rect x="385" y="70"  width="18" height="120" fill="#059669" opacity="0.12" rx="3"/>
+
+                            <!-- Data points with ring -->
+                            <circle cx="160" cy="155" r="5" fill="#10B981"/>
+                            <circle cx="160" cy="155" r="9" fill="none" stroke="#10B981" stroke-opacity="0.3" stroke-width="2"/>
+                            <circle cx="280" cy="120" r="5" fill="#10B981"/>
+                            <circle cx="280" cy="120" r="9" fill="none" stroke="#10B981" stroke-opacity="0.3" stroke-width="2"/>
+                            <circle cx="440" cy="35"  r="5" fill="#10B981"/>
+                            <circle cx="440" cy="35"  r="9" fill="none" stroke="#10B981" stroke-opacity="0.3" stroke-width="2"/>
+
+                            <!-- X-axis labels -->
+                            <text x="40"  y="210" fill="rgba(255,255,255,.3)" font-size="11" font-family="Inter" text-anchor="middle">Jan</text>
+                            <text x="160" y="210" fill="rgba(255,255,255,.3)" font-size="11" font-family="Inter" text-anchor="middle">Apr</text>
+                            <text x="280" y="210" fill="rgba(255,255,255,.3)" font-size="11" font-family="Inter" text-anchor="middle">Jul</text>
+                            <text x="440" y="210" fill="rgba(255,255,255,.3)" font-size="11" font-family="Inter" text-anchor="middle">Oct</text>
+                        </svg>
+
+                        <!-- Bottom stat row -->
+                        <div class="d-flex gap-4 mt-3 pt-3" style="border-top:1px solid rgba(255,255,255,.07)">
+                            <div>
+                                <p style="font-size:.7rem;color:rgba(255,255,255,.4);margin-bottom:.15rem;text-transform:uppercase;letter-spacing:.07em">Invested</p>
+                                <p style="font-size:.95rem;font-weight:600;color:#fff;margin:0">₹9,60,000</p>
+                            </div>
+                            <div>
+                                <p style="font-size:.7rem;color:rgba(255,255,255,.4);margin-bottom:.15rem;text-transform:uppercase;letter-spacing:.07em">Returns</p>
+                                <p style="font-size:.95rem;font-weight:600;color:#6ee7b7;margin:0">+₹2,80,000</p>
+                            </div>
+                            <div>
+                                <p style="font-size:.7rem;color:rgba(255,255,255,.4);margin-bottom:.15rem;text-transform:uppercase;letter-spacing:.07em">Period</p>
+                                <p style="font-size:.95rem;font-weight:600;color:#fff;margin:0">10 Years</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ── FEATURES ─────────────────────────────────────────────── -->
+    <section id="features" class="section-padding" style="background:var(--bg-secondary)">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <p class="text-muted-theme fw-semibold mb-2"
+                   style="font-size:.82rem;letter-spacing:.1em;text-transform:uppercase">
+                    Core Features
+                </p>
+                <h2 class="mb-3">Everything You Need to Succeed</h2>
+                <p style="font-size:1.05rem;color:var(--text-secondary);max-width:520px;margin:0 auto">
+                    A complete financial operating system — offline, private, and powered by intelligent rule-based analysis.
+                </p>
+            </div>
+
+            <div class="row g-4 mt-2">
+
+                <!-- Smart Planner -->
+                <div class="col-md-6" data-aos="fade-up" data-aos-delay="50">
+                    <div class="fintech-card hover-elevation p-5 h-100">
+                        <div class="d-flex align-items-center gap-3 mb-4">
+                            <div class="feature-icon"><i class="fas fa-sitemap"></i></div>
+                            <h3 class="mb-0">Smart Financial Planner</h3>
+                        </div>
+                        <p style="color:var(--text-secondary)">
+                            Get a personalized roadmap generated completely offline based on your income, expenses, specific goals, and risk profile.
+                        </p>
+                        <a href="pages/planner/step1-personal.html" class="d-inline-flex align-items-center gap-1 fw-semibold mt-3"
+                           style="color:var(--accent-primary)">
+                            Start Planning <i class="fas fa-arrow-right ms-1" style="font-size:.8rem"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Financial Health Score -->
+                <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="fintech-card hover-elevation p-5 h-100" style="background:var(--bg-secondary)">
+                        <div class="d-flex justify-content-between align-items-start mb-4">
+                            <h3 class="mb-0">Financial Health Score</h3>
+                            <span style="background:rgba(5,150,105,.1);color:var(--accent-secondary);border:1px solid rgba(5,150,105,.2);font-size:.9rem;font-weight:700;padding:5px 14px;border-radius:99px">
+                                78 / 100
+                            </span>
+                        </div>
+                        <div class="progress mb-3" style="height:8px">
+                            <div class="progress-bar" role="progressbar" style="width:78%" aria-valuenow="78" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <p class="fw-semibold mb-1" style="color:var(--text-primary);font-size:.9rem">Good progress toward your goals.</p>
+                        <p class="mb-0" style="color:var(--text-muted);font-size:.82rem">Calculated locally from your savings ratio, emergency fund, and debt.</p>
+                    </div>
+                </div>
+
+                <!-- Goal Tracking -->
+                <div class="col-lg-8" data-aos="fade-up" data-aos-delay="150">
+                    <div class="fintech-card hover-elevation p-5 h-100">
+                        <h3 class="mb-4">Goal Tracking</h3>
+                        <div class="row g-3">
+                            <div class="col-sm-6">
+                                <div class="goal-item">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span class="fw-medium" style="font-size:.9rem"><i class="fas fa-shield-alt me-2" style="color:var(--accent-warning)"></i>Emergency Fund</span>
+                                        <span class="fw-bold" style="color:var(--accent-secondary);font-size:.9rem">100%</span>
+                                    </div>
+                                    <div class="progress" style="height:5px"><div class="progress-bar" style="width:100%"></div></div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="goal-item">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span class="fw-medium" style="font-size:.9rem"><i class="fas fa-home me-2" style="color:var(--accent-primary)"></i>Dream Home</span>
+                                        <span class="fw-bold" style="color:var(--accent-primary);font-size:.9rem">45%</span>
+                                    </div>
+                                    <div class="progress" style="height:5px"><div class="progress-bar" style="width:45%;background:var(--accent-primary)"></div></div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="goal-item">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span class="fw-medium" style="font-size:.9rem"><i class="fas fa-umbrella-beach me-2" style="color:#0ea5e9"></i>Retirement</span>
+                                        <span class="fw-bold" style="color:#0ea5e9;font-size:.9rem">20%</span>
+                                    </div>
+                                    <div class="progress" style="height:5px"><div class="progress-bar" style="width:20%;background:#0ea5e9"></div></div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="goal-item">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span class="fw-medium" style="font-size:.9rem"><i class="fas fa-chart-line me-2" style="color:var(--accent-secondary)"></i>Investments</span>
+                                        <span class="fw-bold" style="color:var(--accent-secondary);font-size:.9rem">60%</span>
+                                    </div>
+                                    <div class="progress" style="height:5px"><div class="progress-bar" style="width:60%"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Financial Insights — dark card, consistent with hero -->
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="insights-card hover-elevation h-100">
+                        <h3 class="mb-4" style="color:#fff">Financial Insights</h3>
+                        <div class="d-flex align-items-start gap-3 mb-4">
+                            <div style="width:36px;height:36px;border-radius:8px;background:rgba(245,158,11,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                                <i class="fas fa-lightbulb" style="color:#fbbf24;font-size:.9rem"></i>
+                            </div>
+                            <p style="color:rgba(255,255,255,.75);font-size:.9rem;line-height:1.6;margin:0">
+                                You can increase your savings by 15% by optimizing monthly expenses.
+                            </p>
+                        </div>
+                        <div style="border-top:1px solid rgba(255,255,255,.08);padding-top:1.25rem"></div>
+                        <div class="d-flex align-items-start gap-3 mt-3">
+                            <div style="width:36px;height:36px;border-radius:8px;background:rgba(16,185,129,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                                <i class="fas fa-check-circle" style="color:#6ee7b7;font-size:.9rem"></i>
+                            </div>
+                            <p style="color:rgba(255,255,255,.75);font-size:.9rem;line-height:1.6;margin:0">
+                                Your emergency fund covers 4.5 months of expenses. Great job!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ── SCRIPTS ──────────────────────────────────────────────── -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        // AOS init
+        AOS.init({ once: true, offset: 60 });
+
+        // Nav scroll shadow
+        const nav = document.getElementById('mainNav');
+        window.addEventListener('scroll', () => {
+            nav.classList.toggle('scrolled', window.scrollY > 20);
+        });
+
+        // Dark mode toggle — wires up to the app.js theme system
+        const toggle = document.getElementById('themeToggle');
+        const icon   = document.getElementById('themeIcon');
+        function syncIcon() {
+            const dark = document.documentElement.getAttribute('data-theme') === 'dark';
+            icon.className = dark ? 'fas fa-sun' : 'fas fa-moon';
+        }
+        syncIcon();
+        toggle.addEventListener('click', () => {
+            const dark = document.documentElement.getAttribute('data-theme') === 'dark';
+            document.documentElement.setAttribute('data-theme', dark ? 'light' : 'dark');
+            localStorage.setItem('futurefund_theme', dark ? 'light' : 'dark');
+            syncIcon();
+        });
+    </script>
+</body>
+</html>

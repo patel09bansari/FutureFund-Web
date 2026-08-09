@@ -10,7 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function initTheme() {
     // Default to light mode for fintech feel
-    const savedTheme = localStorage.getItem('theme') || 'light';
+    // Use the same localStorage key as other pages for theme persistence
+    const savedTheme = localStorage.getItem('futurefund_theme') || 'light';
     document.documentElement.setAttribute('data-theme', savedTheme);
     
     // Listen for theme toggle events
@@ -34,7 +35,7 @@ function initTheme() {
             const currentTheme = document.documentElement.getAttribute('data-theme');
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
             document.documentElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
+            localStorage.setItem('futurefund_theme', newTheme); // Key must match what every page reads on load
             
             updateIcons(newTheme);
             

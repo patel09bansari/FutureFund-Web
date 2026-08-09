@@ -1,6 +1,10 @@
 // backend/routes/plannerRoutes.js
 const express = require('express');
 const router = express.Router();
-router.post('/save',   (req, res) => res.json({ message: 'Planner saved — coming in Phase 2' }));
-router.get('/result',  (req, res) => res.json({ result: null }));
+const plannerController = require('../controllers/plannerController');
+const authenticateToken = require('../middleware/auth');
+
+router.post('/', authenticateToken, plannerController.savePlanner);
+router.get('/', authenticateToken, plannerController.getPlanner);
+
 module.exports = router;

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EMI Calculator | FutureFund</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="../../css/main.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .calc-header { background: var(--bg-card); border-bottom: 1px solid var(--border-color); padding: 3rem 0; }
+        .input-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 1.5rem; }
+        .result-card { background: var(--bg-primary); border: 1px solid var(--border-color); border-radius: 16px; padding: 2rem; text-align: center; height: 100%; display: flex; flex-direction: column; justify-content: center; }
+        .range-slider { width: 100%; margin-top: 0.5rem; }
+        .val-display { font-weight: 700; color: var(--accent-primary); font-size: 1.1rem; }
+        .chart-container { position: relative; height: 250px; width: 100%; margin-top: 1.5rem; }
+        .edu-section { background: var(--bg-card); border-top: 1px solid var(--border-color); padding: 4rem 0; }
+        .edu-card { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.5rem; height: 100%; }
+        .math-box { background: rgba(30, 58, 138, 0.05); border-left: 4px solid var(--accent-primary); padding: 1rem; border-radius: 0 8px 8px 0; font-family: monospace; font-size: 0.9rem; margin-top: 1rem; }
+        [data-theme="dark"] .math-box { background: rgba(96, 165, 250, 0.1); }
+        .suggestion-box { background: #fef2f2; border: 1px solid #fecaca; border-radius: 8px; padding: 1rem; margin-top: 1.5rem; text-align: left; }
+        [data-theme="dark"] .suggestion-box { background: rgba(220,38,38,.1); border-color: rgba(220,38,38,.2); }
+    </style>
+</head>
+<body class="bg-secondary-theme">
+
+<nav class="navbar navbar-expand-lg fintech-nav sticky-top py-3">
+    <div class="container-xl">
+        <a class="navbar-brand fw-bold fs-5 text-primary-theme d-flex align-items-center gap-2" href="../../index.html">
+            <i class="fas fa-shield-alt" style="color:var(--accent-secondary)"></i> FutureFund
+        </a>
+        <div class="ms-auto d-flex gap-3">
+            <a href="../calculators.html" class="btn btn-sm btn-outline-fintech"><i class="fas fa-arrow-left me-1"></i>Back to Hub</a>
+        </div>
+    </div>
+</nav>
+
+<header class="calc-header">
+    <div class="container-xl">
+        <div class="d-flex align-items-center gap-3">
+            <div class="rounded-3 d-flex align-items-center justify-content-center" style="width:50px;height:50px;background:var(--bg-secondary);font-size:1.5rem;color:var(--accent-primary);">
+                <i class="fas fa-home"></i>
+            </div>
+            <div>
+                <h1 class="fw-bold mb-1 fs-3 text-primary-theme">EMI Calculator</h1>
+                <p class="text-secondary-theme mb-0">Calculate your monthly loan payments and understand the true cost of debt.</p>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="container-xl py-5">
+    <div class="row g-4">
+        
+        <!-- INPUT SECTION -->
+        <div class="col-lg-5">
+            <div class="input-card">
+                <h5 class="fw-bold mb-4 text-primary-theme">Loan Details</h5>
+                
+                <div class="mb-4">
+                    <div class="d-flex justify-content-between mb-1">
+                        <label class="form-label fw-semibold text-secondary-theme mb-0">Loan Amount (₹)</label>
+                        <span class="val-display" id="valAmount">50,00,000</span>
+                    </div>
+                    <input type="range" class="form-range range-slider" id="inAmount" min="50000" max="20000000" step="50000" value="5000000">
+                </div>
+
+                <div class="mb-4">
+                    <div class="d-flex justify-content-between mb-1">
+                        <label class="form-label fw-semibold text-secondary-theme mb-0">Interest Rate (p.a)</label>
+                        <span class="val-display" id="valRate">8.5%</span>
+                    </div>
+                    <input type="range" class="form-range range-slider" id="inRate" min="1" max="25" step="0.1" value="8.5">
+                </div>
+
+                <div class="mb-4">
+                    <div class="d-flex justify-content-between mb-1">
+                        <label class="form-label fw-semibold text-secondary-theme mb-0">Loan Tenure (Years)</label>
+                        <span class="val-display" id="valYears">20</span>
+                    </div>
+                    <input type="range" class="form-range range-slider" id="inYears" min="1" max="30" step="1" value="20">
+                </div>
+            </div>
+        </div>
+
+        <!-- OUTPUT SECTION -->
+        <div class="col-lg-7">
+            <div class="result-card">
+                <div class="row g-3 text-center mb-2">
+                    <div class="col-4">
+                        <p class="text-muted-theme small fw-semibold mb-1">Monthly EMI</p>
+                        <h4 class="fw-bold text-primary-theme mb-0" id="resEmi">—</h4>
+                    </div>
+                    <div class="col-4">
+                        <p class="text-muted-theme small fw-semibold mb-1">Total Interest</p>
+                        <h4 class="fw-bold text-danger mb-0" id="resInterest">—</h4>
+                    </div>
+                    <div class="col-4">
+                        <p class="text-muted-theme small fw-semibold mb-1">Total Payment</p>
+                        <h4 class="fw-bold text-primary-theme mb-0" id="resTotal">—</h4>
+                    </div>
+                </div>
+                
+                <div class="chart-container">
+                    <canvas id="emiChart"></canvas>
+                </div>
+
+                <!-- Interpretation Text -->
+                <p class="text-secondary-theme small mt-4 mb-0" id="interpretationText"></p>
+                
+                <!-- Personalized Suggestion -->
+                <div id="personalizedSuggestion"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- EDUCATIONAL SECTION -->
+<div class="edu-section mt-5">
+    <div class="container-xl">
+        <h3 class="fw-bold text-primary-theme mb-4">Understanding EMI & Loans</h3>
+        <div class="row g-4">
+            
+            <div class="col-md-6">
+                <div class="edu-card">
+                    <h5 class="fw-bold text-primary-theme mb-3"><i class="fas fa-lightbulb text-warning me-2"></i>How EMI Works</h5>
+                    <p class="text-secondary-theme small mb-2">Equated Monthly Installment (EMI) is a fixed payment you make to a lender each month.</p>
+                    <ul class="text-secondary-theme small mb-0 ps-3">
+                        <li class="mb-1"><strong>Early Years:</strong> The majority of your EMI goes towards paying the Interest.</li>
+                        <li class="mb-1"><strong>Later Years:</strong> The majority goes towards reducing the Principal amount.</li>
+                        <li><strong>Impact of Tenure:</strong> A longer loan reduces your monthly EMI, but dramatically increases the total interest you pay.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="edu-card">
+                    <h5 class="fw-bold text-primary-theme mb-3"><i class="fas fa-exclamation-triangle text-danger me-2"></i>Common Mistakes</h5>
+                    <ul class="text-secondary-theme small mb-0 ps-3">
+                        <li class="mb-2"><strong>Focusing only on the EMI:</strong> A car salesman might say "It's only ₹15k a month!" but hide the fact it's a 7-year loan with huge interest.</li>
+                        <li class="mb-2"><strong>Not prepaying:</strong> Making even one extra EMI payment a year can cut years off a home loan.</li>
+                        <li><strong>Maxing out eligibility:</strong> Just because a bank approves you for a massive loan doesn't mean you should take it. Keep EMI < 40% of income.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div class="edu-card">
+                    <h5 class="fw-bold text-primary-theme mb-2"><i class="fas fa-square-root-variable text-primary me-2"></i>The Mathematics Behind It</h5>
+                    <p class="text-secondary-theme small mb-2">The EMI calculation uses the reducing balance method. The formula is:</p>
+                    <div class="math-box">
+                        EMI = [P × r × (1 + r)^n] / [(1 + r)^n - 1]<br><br>
+                        <span class="text-muted-theme">
+                        P = Principal Loan Amount<br>
+                        r = Monthly Interest Rate (Annual Rate / 12 / 100)<br>
+                        n = Total number of monthly installments (Years × 12)
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../../js/storage.js"></script>
+<script src="../../js/utils.js"></script>
+<script src="../../js/math.js"></script>
+<script src="../../js/calculators/emi.js"></script>
+</body>
+</html>

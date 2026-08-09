@@ -165,7 +165,10 @@
                     <input type="file" id="importFile" accept=".json" style="display:none">
                     <hr style="border-color:var(--border-color);margin:.25rem 0">
                     <button class="danger-btn w-100 text-start" id="resetBtn">
-                        <i class="fas fa-trash-alt me-2"></i>Reset All Data
+                        <i class="fas fa-trash-alt me-2"></i>Reset Local Data
+                    </button>
+                    <button class="danger-btn w-100 text-start" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt me-2"></i>Log Out
                     </button>
                 </div>
             </div>
@@ -174,6 +177,31 @@
 
         <!-- RIGHT: Settings -->
         <div class="col-lg-8">
+
+            <!-- Account Settings -->
+            <div class="profile-card">
+                <span class="section-title">Account Settings</span>
+                
+                <div id="profileAlert" class="alert alert-success d-none py-2 px-3 small">Profile updated!</div>
+                
+                <form id="profileForm">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold" style="font-size:.85rem">Full Name</label>
+                            <input type="text" class="form-control" id="accountName" placeholder="Your Name">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold" style="font-size:.85rem">Email Address (Read-only)</label>
+                            <input type="email" class="form-control" id="accountEmail" disabled>
+                        </div>
+                        <div class="col-12 mt-3">
+                            <button type="submit" class="btn btn-primary-fintech btn-sm">
+                                <i class="fas fa-save me-1"></i>Update Profile
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
 
             <!-- Appearance -->
             <div class="profile-card">
@@ -252,6 +280,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="../js/storage.js"></script>
 <script src="../js/utils.js"></script>
+<script src="../js/api.js"></script>
 <script>
 /* ── Theme ──────────────────────────────────────────────── */
 const savedTheme = localStorage.getItem('futurefund_theme') || 'light';
@@ -278,13 +307,31 @@ themeToggleNav.addEventListener('click', toggleTheme);
 darkModeToggle.addEventListener('click', toggleTheme);
 
 /* ── Load Profile Data ───────────────────────────────────── */
+// Load JWT User details
+const ff_user_raw = localStorage.getItem('ff_user');
+if (ff_user_raw) {
+    try {
+        const user = JSON.parse(ff_user_raw);
+        document.getElementById('profileName').textContent = user.full_name || 'FutureFund User';
+        if (user.full_name) {
+            document.getElementById('avatarInitial').textContent = user.full_name.charAt(0).toUpperCase();
+        }
+        
+        // Populate Account Form
+        document.getElementById('accountName').value = user.full_name || '';
+        document.getElementById('accountEmail').value = user.email || '';
+    } catch(e) {}
+}
+
 const report = FutureFundStorage ? FutureFundStorage.get('financial_report') : null;
 const step1  = FutureFundStorage ? FutureFundStorage.get('planner_step1') : null;
 
-if (step1 && step1.fullName) {
+if (!ff_user_raw && step1 && step1.fullName) {
+    // Fallback to local planner data if not logged in
     const name = step1.fullName;
     document.getElementById('profileName').textContent = name;
     document.getElementById('avatarInitial').textContent = name.charAt(0).toUpperCase();
+    document.getElementById('accountName').value = name;
 }
 if (step1 && step1.occupationType) {
     document.getElementById('profileOccupation').textContent = step1.occupationType;
@@ -297,6 +344,47 @@ if (report) {
     document.getElementById('statGoals').textContent    = (report.goals?.length || 0) + ' Goals';
     document.getElementById('statRisk').textContent     = report.risk?.profile || '—';
 }
+
+/* ── Update Profile (API Integration) ────────────────────── */
+document.getElementById('profileForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const newName = document.getElementById('accountName').value.trim();
+    if (!newName) return;
+
+    if (window.FutureFundAPI && localStorage.getItem('ff_jwt')) {
+        const btn = e.target.querySelector('button');
+        const origText = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+        
+        const res = await FutureFundAPI.updateProfile({ full_name: newName });
+        if (res.success) {
+            // Update local user object
+            const user = JSON.parse(localStorage.getItem('ff_user') || '{}');
+            user.full_name = newName;
+            localStorage.setItem('ff_user', JSON.stringify(user));
+            
+            // Update UI
+            document.getElementById('profileName').textContent = newName;
+            document.getElementById('avatarInitial').textContent = newName.charAt(0).toUpperCase();
+            
+            const alert = document.getElementById('profileAlert');
+            alert.classList.remove('d-none');
+            setTimeout(() => alert.classList.add('d-none'), 3000);
+        } else {
+            alert('Error updating profile: ' + res.error);
+        }
+        btn.innerHTML = origText;
+    } else {
+        // Offline fallback: Just update local planner step1
+        if (step1) {
+            step1.fullName = newName;
+            FutureFundStorage.save('planner_step1', step1);
+        }
+        document.getElementById('profileName').textContent = newName;
+        document.getElementById('avatarInitial').textContent = newName.charAt(0).toUpperCase();
+        alert('Updated locally (Offline Mode)');
+    }
+});
 
 /* ── Load saved settings ─────────────────────────────────── */
 const SETTINGS_KEY = 'ff_settings';
@@ -347,11 +435,24 @@ document.getElementById('importFile').addEventListener('change', e => {
     reader.readAsText(file);
 });
 
-/* ── Reset ───────────────────────────────────────────────── */
+/* ── Reset Local Data ─────────────────────────────────────────────────── */
 document.getElementById('resetBtn').addEventListener('click', () => {
-    if (confirm('This will permanently delete all your FutureFund data. Are you sure?')) {
+    if (confirm('This will permanently delete all your local FutureFund data. Are you sure?')) {
         const keys = ['planner_step1','planner_step2','planner_step3','planner_step4','planner_step5','planner_step6','financial_report','ff_settings','ff_bookmarks'];
-        keys.forEach(k => localStorage.removeItem(k));
+        keys.forEach(k => localStorage.removeItem(`futurefund_${k}`));
+        window.location.href = '../index.html';
+    }
+});
+
+/* ── Logout ──────────────────────────────────────────────────────────── */
+document.getElementById('logoutBtn').addEventListener('click', () => {
+    if (confirm('Are you sure you want to log out?')) {
+        // Remove JWT and User Data
+        localStorage.removeItem('ff_jwt');
+        localStorage.removeItem('ff_user');
+        // Reset local thick client data so next user doesn't see it
+        const keys = ['planner_step1','planner_step2','planner_step3','planner_step4','planner_step5','planner_step6','financial_report'];
+        keys.forEach(k => localStorage.removeItem(`futurefund_${k}`));
         window.location.href = '../index.html';
     }
 });

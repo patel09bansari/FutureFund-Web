@@ -237,6 +237,19 @@
                 <div id="milestoneTimeline"></div>
             </div>
 
+            <!-- Learning Progress -->
+            <div class="metric-card mb-4">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <span class="section-label mb-0">Learning Progress</span>
+                    <span class="text-primary-theme small fw-bold" id="learningProgressText">0%</span>
+                </div>
+                <div class="progress mb-3" style="height: 8px;">
+                    <div class="progress-bar bg-accent-primary" id="learningProgressBar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <p class="text-secondary-theme small mb-3">Read articles in the Learning Hub to improve your financial literacy.</p>
+                <a href="resources.html" class="btn btn-sm btn-outline-fintech w-100">Continue Learning</a>
+            </div>
+
             <!-- Recent Activity -->
             <div class="metric-card mb-4">
                 <span class="section-label">Recent Activity</span>
@@ -254,24 +267,31 @@
                 </ul>
             </div>
 
-            <!-- Quick Actions -->
+            <!-- Quick Actions & Calculators -->
             <div class="metric-card mb-4">
                 <span class="section-label">Quick Actions</span>
-                <div class="d-grid gap-2">
+                <div class="d-grid gap-2 mb-4">
                     <a href="planner/step1-personal.html" class="btn btn-outline-fintech text-start">
                         <i class="fas fa-user-edit me-2"></i>Update Financial Profile
                     </a>
                     <button class="btn btn-outline-fintech text-start" data-bs-toggle="modal" data-bs-target="#simulatorModal">
                         <i class="fas fa-sliders-h me-2"></i>Run Scenario Simulation
                     </button>
-                    <a href="calculators.html" class="btn btn-outline-fintech text-start">
-                        <i class="fas fa-calculator me-2"></i>Open Calculators
-                    </a>
-                    <a href="resources.html" class="btn btn-outline-fintech text-start">
-                        <i class="fas fa-book-open me-2"></i>Learning Resources
-                    </a>
                     <a href="report.html" class="btn btn-outline-fintech text-start">
                         <i class="fas fa-file-alt me-2"></i>Full Financial Report
+                    </a>
+                </div>
+                
+                <span class="section-label">Top Calculators</span>
+                <div class="d-grid gap-2">
+                    <a href="calculators/sip.html" class="btn btn-sm btn-outline-fintech text-start">
+                        <i class="fas fa-chart-line me-2"></i>SIP Calculator
+                    </a>
+                    <a href="calculators/emi.html" class="btn btn-sm btn-outline-fintech text-start">
+                        <i class="fas fa-home me-2"></i>EMI Calculator
+                    </a>
+                    <a href="calculators/goal.html" class="btn btn-sm btn-outline-fintech text-start">
+                        <i class="fas fa-bullseye me-2"></i>Goal Planner
                     </a>
                 </div>
             </div>
@@ -369,6 +389,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="../js/storage.js"></script>
+<script src="../js/api.js"></script>
 <script src="../js/utils.js"></script>
 <script src="../js/app.js"></script>
 <script src="../js/engine.js"></script>

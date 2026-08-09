@@ -22,8 +22,22 @@ const ACTION_CLASS = { danger: 'danger', warning: 'warning', success: 'success' 
 const el = (id) => document.getElementById(id);
 const set = (id, html) => { const e = el(id); if (e) e.innerHTML = html; };
 
-/* ── Entry point ─────────────────────────────────────────────────── */
-document.addEventListener('DOMContentLoaded', () => {
+/* ── Entry point ──────────────────────────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', async () => {
+    
+    // Why this approach: On load, we try to hydrate from the backend if a token exists. 
+    // This allows seamless multi-device usage. If offline or no token, it safely falls back to local.
+    if (window.FutureFundAPI && localStorage.getItem('ff_jwt')) {
+        try {
+            const apiRes = await FutureFundAPI.getPlanner();
+            if (apiRes.success && apiRes.data && apiRes.data.result) {
+                FutureFundStorage.save('financial_report', apiRes.data.result);
+            }
+        } catch (e) {
+            console.warn("Dashboard Hydration failed, falling back to offline mode", e);
+        }
+    }
+
     let report = FutureFundStorage.get('financial_report');
 
     if (!report) {
@@ -49,12 +63,36 @@ function renderAll(report) {
     renderInsights(insights);
     renderMilestones(milestones);
     renderRiskCard(risk);
+    renderLearningProgress();
 
     // Report date
     if (report.generatedAt) {
         const d = new Date(report.generatedAt);
         const dateEl = el('reportDate');
         if (dateEl) dateEl.textContent = d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short' });
+    }
+}
+
+/* ── Sidebar: Learning Progress ──────────────────────────────────── */
+function renderLearningProgress() {
+    const TOTAL_ARTICLES = 19; // From resources.html
+    let bookmarks = [];
+    try {
+        bookmarks = JSON.parse(localStorage.getItem('ff_bookmarks') || '[]');
+    } catch(e) {}
+    
+    const completed = Math.min(bookmarks.length, TOTAL_ARTICLES);
+    const pct = Math.round((completed / TOTAL_ARTICLES) * 100);
+    
+    const bar = el('learningProgressBar');
+    const text = el('learningProgressText');
+    
+    if (bar) {
+        bar.style.width = `${pct}%`;
+        bar.setAttribute('aria-valuenow', pct);
+    }
+    if (text) {
+        text.textContent = `${pct}%`;
     }
 }
 

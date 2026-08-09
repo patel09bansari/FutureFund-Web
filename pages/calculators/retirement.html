@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retirement Calculator | FutureFund</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="../../css/main.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .calc-header { background: var(--bg-card); border-bottom: 1px solid var(--border-color); padding: 3rem 0; }
+        .input-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 1.5rem; }
+        .result-card { background: var(--bg-primary); border: 1px solid var(--border-color); border-radius: 16px; padding: 2rem; text-align: center; height: 100%; display: flex; flex-direction: column; justify-content: center; }
+        .range-slider { width: 100%; margin-top: 0.5rem; }
+        .val-display { font-weight: 700; color: var(--accent-primary); font-size: 1.1rem; }
+        .chart-container { position: relative; height: 250px; width: 100%; margin-top: 1.5rem; }
+        .edu-section { background: var(--bg-card); border-top: 1px solid var(--border-color); padding: 4rem 0; }
+        .edu-card { background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.5rem; height: 100%; }
+        .math-box { background: rgba(30, 58, 138, 0.05); border-left: 4px solid var(--accent-primary); padding: 1rem; border-radius: 0 8px 8px 0; font-family: monospace; font-size: 0.9rem; margin-top: 1rem; }
+        [data-theme="dark"] .math-box { background: rgba(96, 165, 250, 0.1); }
+        .suggestion-box { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 1rem; margin-top: 1.5rem; text-align: left; }
+        [data-theme="dark"] .suggestion-box { background: rgba(22,163,74,.1); border-color: rgba(22,163,74,.2); }
+    </style>
+</head>
+<body class="bg-secondary-theme">
+
+<nav class="navbar navbar-expand-lg fintech-nav sticky-top py-3">
+    <div class="container-xl">
+        <a class="navbar-brand fw-bold fs-5 text-primary-theme d-flex align-items-center gap-2" href="../../index.html">
+            <i class="fas fa-shield-alt" style="color:var(--accent-secondary)"></i> FutureFund
+        </a>
+        <div class="ms-auto d-flex gap-3">
+            <a href="../calculators.html" class="btn btn-sm btn-outline-fintech"><i class="fas fa-arrow-left me-1"></i>Back to Hub</a>
+        </div>
+    </div>
+</nav>
+
+<header class="calc-header">
+    <div class="container-xl">
+        <div class="d-flex align-items-center gap-3">
+            <div class="rounded-3 d-flex align-items-center justify-content-center" style="width:50px;height:50px;background:var(--bg-secondary);font-size:1.5rem;color:var(--accent-primary);">
+                <i class="fas fa-umbrella-beach"></i>
+            </div>
+            <div>
+                <h1 class="fw-bold mb-1 fs-3 text-primary-theme">Retirement Calculator</h1>
+                <p class="text-secondary-theme mb-0">Calculate how much you need to retire comfortably, adjusted for inflation.</p>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="container-xl py-5">
+    <div class="row g-4">
+        
+        <!-- INPUT SECTION -->
+        <div class="col-lg-5">
+            <div class="input-card">
+                <h5 class="fw-bold mb-4 text-primary-theme">Retirement Details</h5>
+                
+                <div class="mb-4">
+                    <div class="d-flex justify-content-between mb-1">
+                        <label class="form-label fw-semibold text-secondary-theme mb-0">Current Age</label>
+                        <span class="val-display" id="valAge">30</span>
+                    </div>
+                    <input type="range" class="form-range range-slider" id="inAge" min="18" max="60" step="1" value="30">
+                </div>
+
+                <div class="mb-4">
+                    <div class="d-flex justify-content-between mb-1">
+                        <label class="form-label fw-semibold text-secondary-theme mb-0">Retirement Age</label>
+                        <span class="val-display" id="valRetireAge">60</span>
+                    </div>
+                    <input type="range" class="form-range range-slider" id="inRetireAge" min="40" max="75" step="1" value="60">
+                </div>
+                
+                <div class="mb-4">
+                    <div class="d-flex justify-content-between mb-1">
+                        <label class="form-label fw-semibold text-secondary-theme mb-0">Current Monthly Expenses (₹)</label>
+                        <span class="val-display" id="valExpenses">50,000</span>
+                    </div>
+                    <input type="range" class="form-range range-slider" id="inExpenses" min="10000" max="500000" step="5000" value="50000">
+                </div>
+
+                <div class="row g-2 mb-2">
+                    <div class="col-6">
+                        <label class="form-label fw-semibold text-secondary-theme mb-2">Inflation (p.a)</label>
+                        <select class="form-select" id="inInflation">
+                            <option value="5">5%</option>
+                            <option value="6" selected>6%</option>
+                            <option value="7">7%</option>
+                            <option value="8">8%</option>
+                        </select>
+                    </div>
+                    <div class="col-6">
+                        <label class="form-label fw-semibold text-secondary-theme mb-2">Expected Return</label>
+                        <select class="form-select" id="inReturn">
+                            <option value="8">8%</option>
+                            <option value="10">10%</option>
+                            <option value="12" selected>12%</option>
+                            <option value="14">14%</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- OUTPUT SECTION -->
+        <div class="col-lg-7">
+            <div class="result-card">
+                <div class="row g-3 text-center mb-2">
+                    <div class="col-6">
+                        <p class="text-muted-theme small fw-semibold mb-1">Retirement Corpus Needed</p>
+                        <h3 class="fw-bold text-accent-primary mb-0" style="color:var(--accent-primary)" id="resCorpus">—</h3>
+                    </div>
+                    <div class="col-6">
+                        <p class="text-muted-theme small fw-semibold mb-1">Required SIP / Month</p>
+                        <h3 class="fw-bold text-success mb-0" id="resSip">—</h3>
+                    </div>
+                </div>
+                
+                <div class="chart-container">
+                    <canvas id="retireChart"></canvas>
+                </div>
+
+                <!-- Interpretation Text -->
+                <p class="text-secondary-theme small mt-4 mb-0" id="interpretationText"></p>
+                
+                <!-- Personalized Suggestion -->
+                <div id="personalizedSuggestion"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- EDUCATIONAL SECTION -->
+<div class="edu-section mt-5">
+    <div class="container-xl">
+        <h3 class="fw-bold text-primary-theme mb-4">Planning Your Retirement</h3>
+        <div class="row g-4">
+            
+            <div class="col-md-6">
+                <div class="edu-card">
+                    <h5 class="fw-bold text-primary-theme mb-3"><i class="fas fa-arrow-trend-up text-warning me-2"></i>The Silent Killer: Inflation</h5>
+                    <p class="text-secondary-theme small mb-2">If your current expenses are ₹50,000/month, in 30 years at 6% inflation, you will need <strong>₹2.87 Lakhs/month</strong> just to maintain the exact same lifestyle.</p>
+                    <ul class="text-secondary-theme small mb-0 ps-3">
+                        <li class="mb-1">This is why leaving retirement money in a Savings Account (3% return) guarantees you will run out of money.</li>
+                        <li>Your investments MUST beat inflation.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="edu-card">
+                    <h5 class="fw-bold text-primary-theme mb-3"><i class="fas fa-hand-holding-dollar text-success me-2"></i>The 25x Rule (4% Rule)</h5>
+                    <p class="text-secondary-theme small mb-2">How do we calculate the "Corpus Needed"? We use the 25x Rule (or 4% Safe Withdrawal Rate).</p>
+                    <ul class="text-secondary-theme small mb-0 ps-3">
+                        <li class="mb-2">Find your annual expenses at the time of retirement.</li>
+                        <li>Multiply that by 25.</li>
+                        <li>If you withdraw 4% of this corpus every year, historical data suggests it will last you at least 30 years in retirement.</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../../js/storage.js"></script>
+<script src="../../js/utils.js"></script>
+<script src="../../js/math.js"></script>
+<script src="../../js/calculators/retirement.js"></script>
+</body>
+</html>

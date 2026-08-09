@@ -72,21 +72,32 @@ document.addEventListener('DOMContentLoaded', () => {
         FutureFundStorage.save(storageKey, formData);
         
         // Navigation
-        if (step === "6") {
-            // Trigger Intelligence Engine and Redirect to Report
-            window.location.href = '../report.html';
-        } else {
-            const nextStep = parseInt(step) + 1;
-            // Map step numbers to filenames
-            const fileMap = {
-                2: 'step2-income.html',
-                3: 'step3-expenses.html',
-                4: 'step4-position.html',
-                5: 'step5-goals.html',
-                6: 'step6-risk.html'
-            };
-            window.location.href = fileMap[nextStep];
-        }
+            // On final step, save planner data via API with offline fallback, then redirect to report
+            if (step === "6") {
+                // Gather all planner data from localStorage (steps 1-5) and current formData
+                const aggregated = {};
+                for (let i = 1; i <= 5; i++) {
+                    const saved = FutureFundStorage.get(`planner_step${i}`) || {};
+                    Object.assign(aggregated, saved);
+                }
+                // Include current step data
+                Object.assign(aggregated, formData);
+                // Attempt to sync with backend; fallback handled inside saveWithSync
+                FutureFundStorage.saveWithSync('planner', aggregated, FutureFundAPI.savePlanner(aggregated));
+                window.location.href = '../report.html';
+                return;
+            } else {
+                const nextStep = parseInt(step) + 1;
+                // Map step numbers to filenames
+                const fileMap = {
+                    2: 'step2-income.html',
+                    3: 'step3-expenses.html',
+                    4: 'step4-position.html',
+                    5: 'step5-goals.html',
+                    6: 'step6-risk.html'
+                };
+                window.location.href = fileMap[nextStep];
+            }
     });
 
     // Auto-save on blur for text/number inputs

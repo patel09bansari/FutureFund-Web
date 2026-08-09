@@ -165,6 +165,13 @@
 <script>
 /* ── Article data ─────────────────────────────────────────── */
 const ARTICLES = [
+    // --- Basics & Saving ---
+    {
+        title: 'Saving Basics: Pay Yourself First',
+        desc: 'The golden rule of personal finance: before paying bills or buying things, automatically transfer a percentage to savings.',
+        category: 'budgeting', difficulty: 'beginner', readTime: '4 min',
+        icon: 'fa-piggy-bank', tags: ['saving', 'basics', 'mindset']
+    },
     {
         title: 'The 50/30/20 Rule Explained',
         desc: 'A simple framework for allocating your income: 50% needs, 30% wants, 20% savings.',
@@ -172,101 +179,113 @@ const ARTICLES = [
         icon: 'fa-pie-chart', tags: ['budgeting', 'savings', 'income']
     },
     {
-        title: 'Zero-Based Budgeting: Every Rupee Has a Job',
-        desc: 'Learn how to assign every rupee of income to a category so nothing is unaccounted for.',
-        category: 'budgeting', difficulty: 'beginner', readTime: '7 min',
-        icon: 'fa-equals', tags: ['budgeting', 'planning']
-    },
-    {
         title: 'Why You Need an Emergency Fund First',
         desc: 'Before investing a single rupee, build a financial safety net of 3–6 months of expenses.',
         category: 'emergency', difficulty: 'beginner', readTime: '6 min',
         icon: 'fa-life-ring', tags: ['emergency', 'savings', 'foundation']
     },
+    // --- Banking ---
     {
-        title: 'How Much Should Your Emergency Fund Be?',
-        desc: 'Calculate the ideal amount based on your expenses, job stability, and number of dependents.',
-        category: 'emergency', difficulty: 'beginner', readTime: '4 min',
-        icon: 'fa-calculator', tags: ['emergency', 'calculation']
+        title: 'Understanding Bank Accounts',
+        desc: 'Savings vs Current accounts, minimum balances, and how to choose the right bank for your needs.',
+        category: 'banking', difficulty: 'beginner', readTime: '5 min',
+        icon: 'fa-building-columns', tags: ['bank', 'savings account', 'current account']
     },
     {
+        title: 'Fixed Deposits (FD) & Recurring Deposits (RD)',
+        desc: 'The safest ways to save. Learn the differences, taxation, and when to use FDs over RDs.',
+        category: 'banking', difficulty: 'beginner', readTime: '6 min',
+        icon: 'fa-lock', tags: ['fd', 'rd', 'fixed deposit', 'safe']
+    },
+    // --- Investing Basics ---
+    {
+        title: 'Inflation: The Silent Wealth Killer',
+        desc: 'How inflation reduces purchasing power and why your investments MUST generate higher returns than the inflation rate.',
+        category: 'investing', difficulty: 'beginner', readTime: '5 min',
+        icon: 'fa-arrow-trend-down', tags: ['inflation', 'purchasing power']
+    },
+    {
+        title: 'Risk vs Reward & Diversification',
+        desc: 'Don\'t put all your eggs in one basket. Learn how spreading investments reduces risk without killing returns.',
+        category: 'investing', difficulty: 'beginner', readTime: '7 min',
+        icon: 'fa-scale-balanced', tags: ['risk', 'diversification', 'asset allocation']
+    },
+    // --- Stock Market & Funds ---
+    {
         title: 'What is an SIP and How Does It Work?',
-        desc: 'Systematic Investment Plans (SIPs) explained for absolute beginners — no jargon.',
+        desc: 'Systematic Investment Plans (SIPs) explained for absolute beginners — no jargon, just wealth creation.',
         category: 'investing', difficulty: 'beginner', readTime: '8 min',
         icon: 'fa-chart-line', tags: ['sip', 'mutual funds', 'investing']
     },
     {
-        title: 'Equity vs Debt Mutual Funds: Which Is Right for You?',
-        desc: 'Understand the difference and learn how to pick funds based on your risk profile and timeline.',
-        category: 'investing', difficulty: 'intermediate', readTime: '10 min',
-        icon: 'fa-scale-balanced', tags: ['mutual funds', 'equity', 'debt']
+        title: 'Mutual Funds 101',
+        desc: 'How pooling money with other investors gives you access to professional fund managers and instant diversification.',
+        category: 'investing', difficulty: 'beginner', readTime: '8 min',
+        icon: 'fa-users', tags: ['mutual funds', 'amc', 'nav']
     },
     {
-        title: 'The Power of Compounding: Start Early',
-        desc: "Einstein called it the 8th wonder of the world. See why starting 5 years earlier makes such a dramatic difference.",
-        category: 'investing', difficulty: 'beginner', readTime: '5 min',
-        icon: 'fa-seedling', tags: ['compounding', 'time value', 'investing']
+        title: 'Stocks vs ETFs: Which is better?',
+        desc: 'Should you pick individual stocks (risky) or buy the whole market via an Exchange Traded Fund (ETF)?',
+        category: 'investing', difficulty: 'intermediate', readTime: '9 min',
+        icon: 'fa-money-bill-trend-up', tags: ['stocks', 'etf', 'index funds']
     },
     {
-        title: 'Term Insurance vs Whole Life: What Should You Buy?',
-        desc: 'Most people overpay for insurance. Learn why term insurance is almost always the right answer.',
+        title: 'Investing in Gold: SGBs vs Physical Gold',
+        desc: 'Why Sovereign Gold Bonds (SGBs) are financially superior to buying physical gold jewelry for investment.',
+        category: 'investing', difficulty: 'intermediate', readTime: '6 min',
+        icon: 'fa-coins', tags: ['gold', 'sgb', 'sovereign gold bond']
+    },
+    // --- Government Schemes (India specific based on user prompt) ---
+    {
+        title: 'Public Provident Fund (PPF)',
+        desc: '15-year lock-in, tax-free returns, and guaranteed safety. The ultimate long-term debt instrument.',
+        category: 'schemes', difficulty: 'beginner', readTime: '6 min',
+        icon: 'fa-landmark', tags: ['ppf', 'tax free', 'government']
+    },
+    {
+        title: 'Employee Provident Fund (EPF)',
+        desc: 'How the 12% deduction from your salary works, employer matching, and when you can withdraw it.',
+        category: 'schemes', difficulty: 'intermediate', readTime: '7 min',
+        icon: 'fa-briefcase', tags: ['epf', 'salary', 'pf']
+    },
+    {
+        title: 'National Pension System (NPS)',
+        desc: 'A low-cost, tax-efficient retirement vehicle combining equity and debt. Includes the extra 50k tax benefit.',
+        category: 'retirement', difficulty: 'intermediate', readTime: '8 min',
+        icon: 'fa-umbrella-beach', tags: ['nps', 'pension', 'retirement']
+    },
+    {
+        title: 'Sukanya Samriddhi Yojana (SSY)',
+        desc: 'A high-interest, tax-free scheme dedicated to the education and marriage expenses of a girl child.',
+        category: 'schemes', difficulty: 'beginner', readTime: '5 min',
+        icon: 'fa-child', tags: ['ssy', 'girl child', 'government']
+    },
+    {
+        title: 'National Savings Certificate (NSC)',
+        desc: 'A 5-year fixed income instrument available at post offices. Great for secure 80C tax savings.',
+        category: 'schemes', difficulty: 'beginner', readTime: '4 min',
+        icon: 'fa-certificate', tags: ['nsc', 'post office', '80c']
+    },
+    // --- Insurance ---
+    {
+        title: 'Term Insurance vs Whole Life',
+        desc: 'Most people overpay for insurance. Learn why pure term insurance is almost always the right answer.',
         category: 'insurance', difficulty: 'beginner', readTime: '7 min',
         icon: 'fa-shield-alt', tags: ['insurance', 'term', 'life insurance']
     },
+    // --- Tax & Credit ---
     {
-        title: 'Health Insurance Explained: Covers, Deductibles & Claims',
-        desc: 'Understand what your health policy actually covers, and how to use it effectively.',
-        category: 'insurance', difficulty: 'intermediate', readTime: '9 min',
-        icon: 'fa-hospital', tags: ['health insurance', 'claims', 'premium']
-    },
-    {
-        title: 'Good Debt vs Bad Debt: Know the Difference',
-        desc: "Not all debt is equal. Learn which loans build wealth and which ones drain it.",
-        category: 'debt', difficulty: 'beginner', readTime: '6 min',
-        icon: 'fa-hand-holding-dollar', tags: ['debt', 'loans', 'credit']
-    },
-    {
-        title: 'How to Pay Off Loans Faster: Snowball vs Avalanche',
-        desc: 'Two proven strategies for becoming debt-free — which one suits your psychology?',
-        category: 'debt', difficulty: 'intermediate', readTime: '8 min',
-        icon: 'fa-forward', tags: ['debt', 'repayment', 'strategy']
-    },
-    {
-        title: 'Retirement Planning at Every Age: 20s, 30s, 40s',
-        desc: 'Your retirement strategy should change as you age. Here\'s what to prioritize at each stage.',
-        category: 'retirement', difficulty: 'intermediate', readTime: '12 min',
-        icon: 'fa-umbrella-beach', tags: ['retirement', 'planning', 'corpus']
-    },
-    {
-        title: 'The 25x Rule for Retirement',
-        desc: 'Calculate exactly how large your retirement corpus needs to be using the simple 25x rule.',
-        category: 'retirement', difficulty: 'beginner', readTime: '5 min',
-        icon: 'fa-xmark', tags: ['retirement', 'corpus', 'calculation']
-    },
-    {
-        title: 'Income Tax Slabs in India: Old vs New Regime',
+        title: 'Income Tax Basics: Old vs New Regime',
         desc: 'A plain-English comparison of the two tax regimes with real examples to help you pick the right one.',
         category: 'tax', difficulty: 'beginner', readTime: '10 min',
         icon: 'fa-file-invoice', tags: ['tax', 'income tax', 'india']
-    },
-    {
-        title: 'Section 80C Investments: What to Choose?',
-        desc: 'ELSS, PPF, NPS, LIC — compare all 80C options and pick the best for your situation.',
-        category: 'tax', difficulty: 'intermediate', readTime: '9 min',
-        icon: 'fa-receipt', tags: ['tax', '80c', 'elss', 'ppf']
     },
     {
         title: 'How Your Credit Score is Calculated',
         desc: 'Understand the 5 factors that determine your CIBIL score and how to improve each one.',
         category: 'credit', difficulty: 'beginner', readTime: '7 min',
         icon: 'fa-star-half-stroke', tags: ['credit score', 'cibil', 'loans']
-    },
-    {
-        title: 'How to Build Credit From Scratch',
-        desc: 'Step-by-step guide for building a strong credit history if you have never borrowed before.',
-        category: 'credit', difficulty: 'beginner', readTime: '6 min',
-        icon: 'fa-building-columns', tags: ['credit score', 'beginner', 'credit card']
-    },
+    }
 ];
 
 /* ── Bookmarks from localStorage ──────────────────────────── */
@@ -346,21 +365,19 @@ document.getElementById('searchInput').addEventListener('input', e => {
     applyFilters();
 });
 
-/* ── Dark mode sync ───────────────────────────────────────── */
-const savedTheme = localStorage.getItem('futurefund_theme') || 'light';
-document.documentElement.setAttribute('data-theme', savedTheme);
-const themeToggle = document.getElementById('themeToggle');
-const themeIcon   = document.getElementById('themeIcon');
+/* ── Dark mode sync ───────────────────────────────────────────────────────
+ * app.js (already loaded above) handles the click listener and persistence.
+ * We only need to sync the icon to reflect the theme that app.js just applied.
+ * ─────────────────────────────────────────────────────────────────────── */
+window.addEventListener('themeChanged', syncIcon);
 function syncIcon() {
-    themeIcon.className = document.documentElement.getAttribute('data-theme') === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+    const themeIcon = document.getElementById('themeIcon');
+    if (themeIcon) {
+        themeIcon.className = document.documentElement.getAttribute('data-theme') === 'dark'
+            ? 'fas fa-sun' : 'fas fa-moon';
+    }
 }
-syncIcon();
-themeToggle.addEventListener('click', () => {
-    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-    document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
-    localStorage.setItem('futurefund_theme', isDark ? 'light' : 'dark');
-    syncIcon();
-});
+syncIcon(); // Run once on page load to set correct icon
 
 /* ── Init ─────────────────────────────────────────────────── */
 renderArticles(ARTICLES);

@@ -713,7 +713,14 @@ const FinancialEngine = {
 
             // Only persist to localStorage if this is NOT a simulation run
             if (Object.keys(overrides).length === 0) {
-                FutureFundStorage.save('financial_report', report);
+                // Why this approach: We want the thick client to continue working perfectly offline. 
+                // We use saveWithSync to attempt an API push (FutureFundAPI.savePlanner), and if it fails,
+                // it automatically falls back to localStorage and shows an offline mode toast.
+                if (window.FutureFundAPI && window.FutureFundStorage) {
+                    FutureFundStorage.saveWithSync('financial_report', report, FutureFundAPI.savePlanner(report));
+                } else {
+                    FutureFundStorage.save('financial_report', report);
+                }
             }
 
             return report;

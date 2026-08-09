@@ -2,15 +2,12 @@
 // Handles user registration and login API routes.
 const express = require('express');
 const router = express.Router();
+const authController = require('../controllers/authController');
 
 // POST /api/auth/register
-router.post('/register', (req, res) => {
-    res.json({ message: 'Register endpoint — coming in Phase 2' });
-});
+router.post('/register', authController.register);
 
 // POST /api/auth/login
-router.post('/login', (req, res) => {
-    res.json({ message: 'Login endpoint — coming in Phase 2' });
-});
+router.post('/login', authController.login);
 
 module.exports = router;

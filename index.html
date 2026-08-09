@@ -35,13 +35,12 @@
                     <li class="nav-item"><a class="nav-link" href="pages/calculators.html">Calculators</a></li>
                     <li class="nav-item"><a class="nav-link" href="pages/resources.html">Resources</a></li>
                     <!-- Dark mode toggle — icon button with hover circle -->
-                    <li class="nav-item ms-1">
-                        <div class="theme-toggle" id="themeToggle" title="Toggle dark mode">
-                            <i class="fas fa-moon" id="themeIcon"></i>
-                        </div>
+                    <li class="theme-toggle ms-1" style="cursor:pointer">
+                        <i class="fas fa-moon" style="font-size:1.1rem"></i>
                     </li>
+
                     <li class="nav-item ms-2">
-                        <a href="pages/profile.html" class="btn btn-outline-fintech btn-sm">Sign In</a>
+                        <a href="pages/login.html" class="btn btn-outline-fintech btn-sm">Sign In</a>
                     </li>
                 </ul>
             </div>
@@ -310,20 +309,7 @@
             nav.classList.toggle('scrolled', window.scrollY > 20);
         });
 
-        // Dark mode toggle — wires up to the app.js theme system
-        const toggle = document.getElementById('themeToggle');
-        const icon   = document.getElementById('themeIcon');
-        function syncIcon() {
-            const dark = document.documentElement.getAttribute('data-theme') === 'dark';
-            icon.className = dark ? 'fas fa-sun' : 'fas fa-moon';
-        }
-        syncIcon();
-        toggle.addEventListener('click', () => {
-            const dark = document.documentElement.getAttribute('data-theme') === 'dark';
-            document.documentElement.setAttribute('data-theme', dark ? 'light' : 'dark');
-            localStorage.setItem('futurefund_theme', dark ? 'light' : 'dark');
-            syncIcon();
-        });
+
     </script>
 </body>
 </html>

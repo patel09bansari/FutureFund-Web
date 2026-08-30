@@ -75,15 +75,35 @@ app.get('/api/health', (req, res) => {
 });
 
 // ---------------------------------------------------------------------------
+// 404 Handler for API Routes (Express v5 requires named wildcards)
+// ---------------------------------------------------------------------------
+app.use('/api/{*path}', (req, res) => {
+    res.status(404).json({ success: false, message: 'API route not found' });
+});
+
+// ---------------------------------------------------------------------------
 // Catch-All Route — DEVELOPMENT ONLY
 // In development, if no API route or static file matches, serve index.html.
-// In production, this is unnecessary because Vercel/Netlify handles routing.
 // ---------------------------------------------------------------------------
 if (NODE_ENV === 'development') {
     app.get('/{*path}', (req, res) => {
         res.sendFile(path.join(__dirname, '..', 'index.html'));
     });
 }
+
+// ---------------------------------------------------------------------------
+// Centralized Error Handling Middleware
+// ---------------------------------------------------------------------------
+app.use((err, req, res, next) => {
+    console.error('Unhandled Error:', err);
+    
+    // Handle JSON parsing errors
+    if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
+        return res.status(400).json({ success: false, message: 'Invalid JSON payload' });
+    }
+    
+    res.status(500).json({ success: false, message: 'Something went wrong. Please try again.' });
+});
 
 // ---------------------------------------------------------------------------
 // Start Server

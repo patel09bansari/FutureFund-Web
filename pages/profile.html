@@ -447,12 +447,13 @@ document.getElementById('resetBtn').addEventListener('click', () => {
 /* ── Logout ──────────────────────────────────────────────────────────── */
 document.getElementById('logoutBtn').addEventListener('click', () => {
     if (confirm('Are you sure you want to log out?')) {
-        // Remove JWT and User Data
+        // Remove auth tokens
         localStorage.removeItem('ff_jwt');
         localStorage.removeItem('ff_user');
-        // Reset local thick client data so next user doesn't see it
-        const keys = ['planner_step1','planner_step2','planner_step3','planner_step4','planner_step5','planner_step6','financial_report'];
-        keys.forEach(k => localStorage.removeItem(`futurefund_${k}`));
+        // Clear all FutureFund data (except theme preference)
+        if (window.FutureFundStorage) {
+            window.FutureFundStorage.resetAll();
+        }
         window.location.href = '../index.html';
     }
 });

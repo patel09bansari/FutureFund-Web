@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Expenses | FutureFund</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <style>
+        .profile-header { background: var(--bg-card); border-bottom: 1px solid var(--border-color); padding: 3rem 0; }
+        .profile-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg, 14px);
+            padding: 1.75rem;
+            margin-bottom: 1.25rem;
+        }
+        .section-title {
+            font-size: .72rem; font-weight: 700; letter-spacing: .1em;
+            text-transform: uppercase; color: var(--text-muted);
+            margin-bottom: 1rem; display: block;
+        }
+        .expense-item {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background: var(--bg-secondary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .expense-info h5 { margin-bottom: 0.25rem; color: var(--text-primary); }
+        .expense-info p { margin-bottom: 0; font-size: 0.85rem; color: var(--text-muted); }
+        .expense-amount { font-weight: 700; font-size: 1.1rem; color: var(--accent-danger, #dc3545); }
+    </style>
+</head>
+<body class="bg-secondary-theme">
+
+<nav class="navbar navbar-expand-lg fintech-nav sticky-top py-3">
+    <div class="container-xl">
+        <a class="navbar-brand d-flex align-items-center gap-2" href="../index.html"
+           style="font-family:var(--font-heading);font-weight:700;color:var(--text-primary)">
+            <i class="fas fa-shield-alt" style="color:var(--accent-secondary)"></i> FutureFund
+        </a>
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+            <i class="fas fa-bars" style="color:var(--text-secondary)"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="nav">
+            <ul class="navbar-nav ms-auto align-items-center gap-1">
+                <li><a class="nav-link fw-medium" style="color:var(--text-secondary)" href="dashboard.html">Dashboard</a></li>
+                <li><a class="nav-link fw-medium" style="color:var(--text-secondary)" href="planner/step1-personal.html">Planner</a></li>
+                <li><a class="nav-link fw-medium" style="color:var(--text-secondary)" href="goals.html">Goals</a></li>
+                <li><a class="nav-link fw-medium active" style="color:var(--text-primary)" href="expenses.html">Expenses</a></li>
+                <li><a class="nav-link fw-medium" style="color:var(--text-secondary)" href="profile.html">Profile</a></li>
+                <li class="nav-item ms-1">
+                    <div class="theme-toggle" id="themeToggle">
+                        <i class="fas fa-moon" id="themeIcon"></i>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<header class="profile-header">
+    <div class="container-xl">
+        <div class="d-flex align-items-center gap-4">
+            <div>
+                <p style="font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:.25rem">Budgeting</p>
+                <h1 class="fw-bold mb-1" style="font-family:var(--font-heading);color:var(--text-primary)">Manage Expenses</h1>
+                <p style="color:var(--text-muted);font-size:.9rem;margin:0">Track your monthly and recurring expenses.</p>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="container-xl py-5">
+    <div class="row g-4">
+        <!-- Add Expense Form -->
+        <div class="col-lg-4">
+            <div class="profile-card">
+                <span class="section-title">Add New Expense</span>
+                <form id="addExpenseForm">
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold" style="font-size:.85rem">Category</label>
+                        <select class="form-select" id="expenseCategory" required>
+                            <option value="Housing">Housing</option>
+                            <option value="Transportation">Transportation</option>
+                            <option value="Food">Food</option>
+                            <option value="Utilities">Utilities</option>
+                            <option value="Insurance">Insurance</option>
+                            <option value="Healthcare">Healthcare</option>
+                            <option value="Savings">Savings & Investments</option>
+                            <option value="Personal">Personal Spending</option>
+                            <option value="Entertainment">Entertainment</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold" style="font-size:.85rem">Amount</label>
+                        <input type="number" class="form-control" id="expenseAmount" required min="1">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold" style="font-size:.85rem">Description (Optional)</label>
+                        <input type="text" class="form-control" id="expenseDesc" placeholder="e.g. Groceries">
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="expenseRecurring">
+                        <label class="form-check-label" for="expenseRecurring">Recurring monthly</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary-fintech btn-sm w-100">
+                        <i class="fas fa-plus me-1"></i> Add Expense
+                    </button>
+                </form>
+            </div>
+            
+            <div class="profile-card text-center">
+                <span class="section-title">Total Monthly Expenses</span>
+                <h2 class="fw-bold mb-0" id="totalExpenses" style="color:var(--text-primary)">$0</h2>
+            </div>
+        </div>
+
+        <!-- Expenses List -->
+        <div class="col-lg-8">
+            <div class="profile-card">
+                <span class="section-title">Your Expenses</span>
+                <div id="expensesContainer">
+                    <p class="text-muted small">Loading expenses...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../js/api.js"></script>
+<script src="../js/storage.js"></script>
+<script src="../js/utils.js"></script>`n<script src="../js/app.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", async () => {
+        if (!window.FutureFundAPI || !localStorage.getItem("ff_jwt")) {
+            window.location.href = "login.html";
+            return;
+        }
+
+        const container = document.getElementById("expensesContainer");
+        const form = document.getElementById("addExpenseForm");
+
+        const loadExpenses = async () => {
+            const res = await FutureFundAPI.getExpenses();
+            if (res.success) {
+                renderExpenses(res.data.expenses || []);
+            } else {
+                container.innerHTML = `<p class="text-danger small">Failed to load expenses: ${res.error || "Unknown error"}</p>`;
+            }
+        };
+
+        const renderExpenses = (expenses) => {
+            if (expenses.length === 0) {
+                container.innerHTML = "<p class=\"text-muted small\">You have no expenses yet. Add one to get started.</p>";
+                document.getElementById("totalExpenses").innerText = "$0";
+                return;
+            }
+
+            container.innerHTML = "";
+            let total = 0;
+            
+            // Helper function to escape HTML
+            const escapeHTML = (str) => {
+                if (!str) return '';
+                const div = document.createElement('div');
+                div.textContent = str;
+                return div.innerHTML;
+            };
+
+            expenses.forEach(exp => {
+                const amount = parseFloat(exp.amount);
+                total += amount;
+
+                container.innerHTML += `
+                    <div class="expense-item">
+                        <div class="expense-info">
+                            <h5>${escapeHTML(exp.category)} ${exp.is_recurring ? '<span class="badge bg-secondary ms-2" style="font-size:0.6rem">Recurring</span>' : ''}</h5>
+                            <p>${escapeHTML(exp.description) || 'No description'}</p>
+                        </div>
+                        <div class="d-flex align-items-center gap-3">
+                            <span class="expense-amount">$${amount.toLocaleString()}</span>
+                            <button class="btn btn-sm btn-outline-danger" onclick="deleteExpense(${exp.id})"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            document.getElementById("totalExpenses").innerText = "$" + total.toLocaleString();
+        };
+
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const data = {
+                category: document.getElementById("expenseCategory").value,
+                amount: document.getElementById("expenseAmount").value,
+                description: document.getElementById("expenseDesc").value,
+                is_recurring: document.getElementById("expenseRecurring").checked
+            };
+
+            const btn = form.querySelector("button");
+            btn.disabled = true;
+            btn.innerHTML = "Adding...";
+
+            const res = await FutureFundAPI.createExpense(data);
+            if (res.success) {
+                form.reset();
+                await loadExpenses();
+            } else {
+                alert(res.error || "Failed to add expense");
+            }
+            btn.disabled = false;
+            btn.innerHTML = "<i class=\"fas fa-plus me-1\"></i> Add Expense";
+        });
+
+        window.deleteExpense = async (id) => {
+            if (confirm("Are you sure you want to delete this expense?")) {
+                const res = await FutureFundAPI.deleteExpense(id);
+                if (res.success) {
+                    await loadExpenses();
+                } else {
+                    alert(res.error || "Failed to delete expense");
+                }
+            }
+        };
+
+        loadExpenses();
+    });
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

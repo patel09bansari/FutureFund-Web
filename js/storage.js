@@ -19,11 +19,14 @@ const Storage = {
      */
     async saveWithSync(key, data, apiCallPromise) {
         let isOffline = false;
-        
+        let syncedOnline = false;
+
         try {
             if (apiCallPromise && window.FutureFundAPI && FutureFundAPI.getToken()) {
                 const response = await apiCallPromise;
-                if (!response.success) {
+                if (response.success) {
+                    syncedOnline = true;
+                } else {
                     console.warn('API Sync failed, falling back to offline mode:', response.error);
                     isOffline = true;
                 }
@@ -39,43 +42,57 @@ const Storage = {
         // Always save to localStorage as the source of truth for the thick client
         const saved = this.save(key, data);
 
-        if (isOffline && saved && apiCallPromise) {
-            this.showOfflineNotification();
+        if (saved && apiCallPromise) {
+            if (syncedOnline) {
+                this.showSyncSuccessNotification();
+            } else if (isOffline) {
+                this.showOfflineNotification();
+            }
         }
 
         return saved;
     },
 
     showOfflineNotification() {
-        // Prevent duplicate toasts
-        if (document.getElementById('offline-toast')) return;
-        
-        const toast = document.createElement('div');
-        toast.id = 'offline-toast';
-        toast.style.cssText = `
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #f59e0b;
-            color: #fff;
-            padding: 12px 24px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            z-index: 9999;
-            font-size: 0.9rem;
-            font-weight: 600;
-            animation: slideUp 0.3s ease;
-        `;
-        toast.innerHTML = `<i class="fas fa-wifi me-2" style="opacity:0.7"></i> Offline Mode Enabled — Saved Locally`;
-        document.body.appendChild(toast);
+        this._showToast(
+            '⚠️ Saved locally — will sync when connection is available.',
+            '#f59e0b'
+        );
+    },
 
-        // Add keyframes if they don't exist
+    showSyncSuccessNotification() {
+        this._showToast(
+            '✓ Saved and synced to server.',
+            '#10b981'
+        );
+    },
+
+    _showToast(message, bgColor) {
+        // Remove any existing toast
+        const existing = document.getElementById('ff-toast');
+        if (existing) existing.remove();
+
+        // Add keyframes once
         if (!document.getElementById('toast-styles')) {
             const style = document.createElement('style');
             style.id = 'toast-styles';
-            style.innerHTML = `@keyframes slideUp { from { transform: translateY(100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }`;
+            style.textContent = `@keyframes ffSlideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }`;
             document.head.appendChild(style);
         }
+
+        const toast = document.createElement('div');
+        toast.id = 'ff-toast';
+        toast.style.cssText = `
+            position: fixed; bottom: 20px; right: 20px;
+            background: ${bgColor}; color: #fff;
+            padding: 12px 24px; border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            z-index: 9999; font-size: 0.9rem; font-weight: 600;
+            animation: ffSlideUp 0.3s ease; max-width: 320px;
+        `;
+        // Use textContent for safety — no user data is in this message
+        toast.textContent = message;
+        document.body.appendChild(toast);
 
         setTimeout(() => {
             toast.style.opacity = '0';
@@ -117,11 +134,11 @@ const Storage = {
         localStorage.removeItem(`futurefund_${key}`);
     },
 
-    // Reset all FutureFund data
+    // Reset all FutureFund data (except theme)
     resetAll() {
         const keys = Object.keys(localStorage);
         keys.forEach(k => {
-            if (k.startsWith('futurefund_')) {
+            if (k.startsWith('futurefund_') && k !== 'futurefund_theme') {
                 localStorage.removeItem(k);
             }
         });

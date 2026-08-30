@@ -273,7 +273,7 @@ function renderGoals(goals) {
         <div class="col-md-6">
             <div class="goal-card">
                 <div class="d-flex justify-content-between align-items-start mb-3">
-                    <h6 class="fw-bold mb-0 text-primary-theme text-truncate me-2" style="max-width:170px" title="${g.name}">${g.name}</h6>
+                    <h6 class="fw-bold mb-0 text-primary-theme text-truncate me-2" style="max-width:170px" title="${FutureFundUtils.escapeHTML(g.name)}">${FutureFundUtils.escapeHTML(g.name)}</h6>
                     <span class="goal-badge ${c.badge}">${label}</span>
                 </div>
                 <h4 class="fw-bold text-primary-theme mb-1">${fmt(g.target)}</h4>

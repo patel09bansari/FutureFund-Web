@@ -4,16 +4,22 @@ const pool = require('../config/db');
  * Save planner results (JSON string)
  * Thick Client Architecture: The backend just stores the result computed by the frontend engine.
  */
-const savePlanner = async (req, res) => {
+const savePlanner = async (req, res, next) => {
     try {
         const userId = req.user.id;
         const { report_data } = req.body; // Expecting a JSON string or object from frontend
 
         if (!report_data) {
-            return res.status(400).json({ error: 'Missing report data' });
+            return res.status(400).json({ success: false, message: 'Missing report data' });
         }
 
-        const reportString = typeof report_data === 'string' ? report_data : JSON.stringify(report_data);
+        let reportString;
+        try {
+            reportString = typeof report_data === 'string' ? report_data : JSON.stringify(report_data);
+            JSON.parse(reportString); // validate it is actually parseable
+        } catch (e) {
+            return res.status(400).json({ success: false, message: 'Invalid report_data JSON format' });
+        }
 
         // Check if planner data already exists for this user
         const [existing] = await pool.execute(
@@ -35,17 +41,16 @@ const savePlanner = async (req, res) => {
             );
         }
 
-        res.json({ message: 'Planner saved successfully' });
+        res.json({ success: true, message: 'Planner saved successfully' });
     } catch (error) {
-        console.error('Save Planner Error:', error);
-        res.status(500).json({ error: 'Internal server error' });
+        next(error);
     }
 };
 
 /**
  * Get saved planner results
  */
-const getPlanner = async (req, res) => {
+const getPlanner = async (req, res, next) => {
     try {
         const userId = req.user.id;
 
@@ -55,7 +60,7 @@ const getPlanner = async (req, res) => {
         );
 
         if (profiles.length === 0 || !profiles[0].report_data) {
-            return res.json({ result: null });
+            return res.json({ success: true, result: null });
         }
 
         let parsedData = profiles[0].report_data;
@@ -63,10 +68,9 @@ const getPlanner = async (req, res) => {
             try { parsedData = JSON.parse(parsedData); } catch (e) {}
         }
 
-        res.json({ result: parsedData });
+        res.json({ success: true, result: parsedData });
     } catch (error) {
-        console.error('Get Planner Error:', error);
-        res.status(500).json({ error: 'Internal server error' });
+        next(error);
     }
 };
 

@@ -14,7 +14,7 @@ const authenticateToken = (req, res, next) => {
     const token = authHeader && authHeader.split(' ')[1];
 
     if (!token) {
-        return res.status(401).json({ error: 'Access denied. No token provided.' });
+        return res.status(401).json({ success: false, message: 'Access denied. No token provided.' });
     }
 
     try {
@@ -26,7 +26,8 @@ const authenticateToken = (req, res, next) => {
         req.user = decoded;
         next();
     } catch (err) {
-        return res.status(403).json({ error: 'Invalid or expired token.' });
+        // Handles both expired tokens and malformed/invalid tokens
+        return res.status(401).json({ success: false, message: 'Invalid or expired token.' });
     }
 };
 
